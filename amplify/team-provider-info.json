@@ -1,0 +1,14 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-graphplotter-dev-141900-authRole",
+      "UnauthRoleArn": "arn:aws:iam::803946192019:role/amplify-graphplotter-dev-141900-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::803946192019:role/amplify-graphplotter-dev-141900-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-graphplotter-dev-141900-deployment",
+      "UnauthRoleName": "amplify-graphplotter-dev-141900-unauthRole",
+      "StackName": "amplify-graphplotter-dev-141900",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:803946192019:stack/amplify-graphplotter-dev-141900/2bf0c9f0-095a-11ec-ae4b-0626f4c0f5f4"
+    }
+  }
+}
