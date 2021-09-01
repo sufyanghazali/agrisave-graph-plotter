@@ -1,29 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
-import { queryIotCatalogsBySerialNumberIndex } from './graphql/queries.js';
+import Amplify, { API } from 'aws-amplify';
+import * as queries from './graphql/queries';
+
+import Graph from './components/Graph';
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
 const App = () => {
-  const [data, setData] = useState([]);
+  const [sensorData, setSensorData] = useState([]);
 
+  // get a list of sensors - doesnt look like theres a query for that
+  // const [selectedSensor, setSelectedSen] = useState();
+  // const [sensors, setSensors] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    async function getSensorData() {
+      try {
+        await API.graphql({
+          query: queries.queryIotCatalogsBySerialNumberIndex,
+          variables: {
+            serialNumber: "SN-7229"
+          }
+        })
+          .then(data => {
+            console.log(data);
+            setSensorData(data.data.queryIotCatalogsBySerialNumberIndex.items);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getSensorData();
+
   }, []);
 
-  async function fetchData() {
-    try {
-      const sensorData = await API.graphql(graphqlOperation(queryIotCatalogsBySerialNumberIndex));
-      console.log(sensorData.data);
-    } catch (err) {
-      console.log(err);
-    }
+  async function getSensors() {
+    // fetch a list
   }
 
+
+
+
   return (
-    <div>App</div>
+    <div>
+      <Graph
+        message="Graph"
+        sensorData={sensorData}
+      />
+    </div>
   )
 }
 
