@@ -23,10 +23,12 @@ const App = () => {
             serialNumber: "SN-7229"
           }
         })
-          .then(data => {
-            console.log(data);
-            setSensorData(data.data.queryIotCatalogsBySerialNumberIndex.items);
+          .then(res => {
+            const items = res.data.queryIotCatalogsBySerialNumberIndex.items;
+            items.sort((a, b) => a.unixTimeStamp - b.unixTimeStamp);
+            setSensorData(items);
           });
+
       } catch (err) {
         console.log(err);
       }
@@ -35,9 +37,9 @@ const App = () => {
 
   }, []);
 
-  async function getSensors() {
-    // fetch a list
-  }
+  // async function getSensors() {
+  //   // fetch a list
+  // }
 
 
 
@@ -45,7 +47,7 @@ const App = () => {
   return (
     <div>
       There should be a graph here
-      <Graph data={sensorData}/>
+      <Graph data={sensorData} />
     </div>
   )
 }
