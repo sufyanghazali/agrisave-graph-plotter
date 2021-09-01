@@ -44,10 +44,8 @@ const App = () => {
 
   return (
     <div>
-      <Graph
-        message="Graph"
-        sensorData={sensorData}
-      />
+      There should be a graph here
+      <Graph data={sensorData}/>
     </div>
   )
 }
