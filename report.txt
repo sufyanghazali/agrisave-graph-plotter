@@ -1,0 +1,13 @@
+had issue with setting state from async function call - fixed that
+learning how to use d3.js for visualizing data
+learning how to use SVGs in html
+parsed data from api call to be able to input into graph
+sortDirection doesn't actually sort the data, from what I can see
+manually sort the data using unixTimeStamp. The data set I was working with had very scattered data though so can't infer much from the graph
+
+
+TODO
+make graph interactive
+visualization
+portal
+weather forecasts
