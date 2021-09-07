@@ -20,7 +20,7 @@ const App = () => {
         await API.graphql({
           query: queries.queryIotCatalogsBySerialNumberIndex,
           variables: {
-            serialNumber: "SN-7229"
+            serialNumber: "AGRIM8-SN3302",
           }
         })
           .then(res => {
@@ -40,8 +40,6 @@ const App = () => {
   // async function getSensors() {
   //   // fetch a list
   // }
-
-
 
 
   return (

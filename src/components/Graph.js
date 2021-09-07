@@ -39,7 +39,6 @@ class Graph extends React.Component {
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x));
 
-
         const y = d3.scaleLinear()
             // .domain(d3.extent(data, d => d.temp))
             .domain([0, 100])
@@ -56,7 +55,7 @@ class Graph extends React.Component {
             .attr("d", d3.line()
                 .x(function(d) { return x(d.date) })
                 .y(function(d) { return y(d.temp) })
-            )
+            );
     }
 
     formatData() {
@@ -73,7 +72,7 @@ class Graph extends React.Component {
     render() {
         return (
             <div ref={this.myRef}></div>
-        )
+        );
     }
 }
 
