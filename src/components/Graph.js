@@ -26,7 +26,7 @@ class Graph extends React.Component {
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
+            .attr("transform", `translate(${ margin.left },${ margin.top })`);
 
         const x = d3.scaleTime()
             .domain(d3.extent(data, d => {
