@@ -1,9 +1,9 @@
-import useData from './hooks/useData';
+import useData from '../hooks/useData';
 
 import Amplify from 'aws-amplify';
-import awsExports from './aws-exports';
+import awsExports from '../aws-exports';
 
-import Graph from './components/Graph';
+import Graph from './Graph';
 
 Amplify.configure(awsExports);
 
@@ -22,17 +22,9 @@ const App = () => {
     )
   }
 
-
   return (
-    <div>
-      <Graph data={sensorData} />
-    </div>
+    <Graph data={sensorData} />
   )
-
-  // async function getSensors() {
-  //   // fetch a list
-  // }
-
 }
 
 export default App;

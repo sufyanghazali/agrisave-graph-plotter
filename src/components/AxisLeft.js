@@ -18,7 +18,6 @@ const AxisLeft = ({ yScale, innerWidth, tickOffset }) => {
                 </text>
             </g>
         ))
-
     );
 }
 
