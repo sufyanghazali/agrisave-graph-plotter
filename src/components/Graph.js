@@ -5,17 +5,19 @@ import Dropdown from './Dropdown';
 import AxisBottom from './AxisBottom';
 import AxisLeft from './AxisLeft';
 import Marks from './Marks';
+import XAxis from './XAxis';
+import YAxis from './YAxis';
 
 const height = 500;
 const width = 1000;
 const margin = {
     top: 10,
     right: 70,
-    bottom: 30,
+    bottom: 50,
     left: 60
 };
-const xAxisLabelOffset = 60;
-const yAxisLabelOffset = 60;
+const xAxisLabelOffset = 40;
+const yAxisLabelOffset = 40;
 
 const attributes = [
     { value: "deviceMos", label: "Moisture" },
@@ -74,26 +76,31 @@ const Graph = ({ data }) => {
 
     return (
         <>
-            <label htmlFor="x-select">X:</label>
-            <Dropdown
-                options={attributes}
-                id="x-select"
-                selectedValue={xAttribute}
-                onSelectedValueChange={setXAttribute}
-            />
+            <div>
+                <label htmlFor="x-select">X:</label>
+                <Dropdown
+                    options={attributes}
+                    id="x-select"
+                    selectedValue={xAttribute}
+                    onSelectedValueChange={setXAttribute}
+                />
+            </div>
+
             <svg width={width} height={height}>
                 <g transform={`translate(${ margin.left }, ${ margin.top })`}>
-                    <AxisBottom
-                        xScale={xScale}
-                        innerHeight={innerHeight}
-                        tickFormat={xAxisTickFormat}
-                        tickOffset={20} />
-                    <AxisLeft
-                        yScale={yScale}
-                        innerWidth={innerWidth}
-                        tickOffset={10}
-                    />
-                    <text>{yAxisLabel}</text>
+
+                    <XAxis xScale={xScale} innerHeight={innerHeight} />
+                    <YAxis yScale={yScale} innerWidth={innerWidth} />
+
+                    <text
+                        textAnchor="middle"
+                        transform={`translate(${ -yAxisLabelOffset }, ${ innerHeight / 2 }) rotate(-90)`}> {yAxisLabel}</text>
+                    <text
+                        x={innerWidth / 2}
+                        y={innerHeight + xAxisLabelOffset}
+                        textAnchor="middle"
+                    >{xAxisLabel}</text>
+
                     <Marks data={data}
                         xScale={xScale}
                         yScale={yScale}

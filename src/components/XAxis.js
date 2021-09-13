@@ -1,16 +1,19 @@
 import { useEffect, useRef } from 'react';
+import { select, axisBottom } from 'd3';
 
-const XAxis = ({ xScale }) => {
+const XAxis = ({ xScale, innerHeight }) => {
     const ref = useRef();
 
     useEffect(() => {
         const xAxisG = select(ref.current); // x axis group element
+        const xAxis = axisBottom(xScale)
+            .tickSize(-innerHeight)
+            .tickPadding(10);
+        xAxisG.call(xAxis);
     }, [])
 
     return (
-        <g ref={ref}>
-
-        </g>
+        <g ref={ref} transform={`translate(0,${ innerHeight })`} />
     )
 }
 

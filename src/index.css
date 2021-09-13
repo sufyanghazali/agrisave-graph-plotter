@@ -12,8 +12,12 @@ code {
         monospace;
 }
 
-.tick {
-    stroke: #c0c0bb;
+.domain {
+    display: none;
+}
+
+.tick line {
+    stroke: #e0e0e0;
 }
 
 .tick-text {
@@ -29,10 +33,11 @@ code {
     text-anchor: middle;
 }
 
-.mark path {
+.marker-line {
     fill: none;
     stroke: black;
-    stroke-width: 3;
+    opacity: 0.5;
+    stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
