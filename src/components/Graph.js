@@ -1,79 +1,72 @@
 import React from 'react';
-import * as d3 from "d3";
+import { scaleLinear, scaleTime, max, timeFormat, extent } from "d3";
 
-class Graph extends React.Component {
-    constructor(props) {
-        super(props);
-        this.myRef = React.createRef(); // need ref for d3 to select
-    }
+import AxisBottom from './AxisBottom';
+import AxisLeft from './AxisLeft';
+import Marks from './Marks';
 
-    componentDidUpdate() {
-        if (this.props.data.length !== 0)
-            this.drawChart();
-    }
+const height = 500;
+const width = 1000;
+const margin = {
+    top: 10,
+    right: 70,
+    bottom: 30,
+    left: 60
+};
+const xAxisLabelOffset = 60;
+const yAxisLabelOffset = 60;
 
-    drawChart() {
-        console.log("yeet yeet");
-        const data = this.formatData();
 
-        const margin = { top: 10, right: 30, bottom: 30, left: 60 },
-            width = 700 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
+const Graph = ({ data }) => {
+    console.log(data);
+    const innerHeight = height - margin.top - margin.bottom;
+    const innerWidth = width - margin.left - margin.right;
 
-        // create svg element
-        const svg = d3.select(this.myRef.current)
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${ margin.left },${ margin.top })`);
+    // Accessor function to pass in map()
+    // I feel like these should be named getValue instead
+    const xValue = d => new Date(d.unixTimeStamp); // convert time stamp to Date object
+    const yValue = d => d.deviceTemp;
 
-        const x = d3.scaleTime()
-            .domain(d3.extent(data, d => {
-                console.log(d.date);
-                return d.date;
-            }))
-            .range([0, width]);
+    const xAxisLabel = "Time";
+    const yAxisLabel = "Temperature";
 
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+    // Function to format Date object to "day month"
+    const xAxisTickFormat = timeFormat("%d %b");
 
-        const y = d3.scaleLinear()
-            // .domain(d3.extent(data, d => d.temp))
-            .domain([0, 100])
-            .range([height, 0]);
+    const xScale = scaleTime()
+        .domain(extent(data, xValue))
+        .range([0, innerWidth])
+        .nice();
 
-        svg.append("g")
-            .call(d3.axisLeft(y));
+    const yScale = scaleLinear()
+        .domain(extent(data, yValue))
+        .range([innerHeight, 0])
+        .nice();
 
-        svg.append("path")
-            .datum(data)
-            .attr("fill", "none")
-            .attr("stroke", "steelblue")
-            .attr("stroke-width", 1.5)
-            .attr("d", d3.line()
-                .x(function(d) { return x(d.date) })
-                .y(function(d) { return y(d.temp) })
-            );
-    }
-
-    formatData() {
-        const sensorData = this.props.data.map(info => {
-            return {
-                temp: info.deviceTemp,
-                date: info.unixTimeStamp
-            }
-        });
-
-        return sensorData;
-    }
-
-    render() {
-        return (
-            <div ref={this.myRef}></div>
-        );
-    }
+    return (
+        <svg width={width} height={height}>
+            <g transform={`translate(${ margin.left }, ${ margin.top })`}>
+                <AxisBottom
+                    xScale={xScale}
+                    innerHeight={innerHeight}
+                    tickFormat={xAxisTickFormat}
+                    tickOffset={20} />
+                <AxisLeft
+                    yScale={yScale}
+                    innerWidth={innerWidth}
+                    tickOffset={10}
+                />
+                <Marks data={data}
+                    xScale={xScale}
+                    yScale={yScale}
+                    xValue={xValue}
+                    yValue={yValue}
+                    toolTipFormat={(yValue) => (Math.round(yValue * 100) / 100).toFixed(1)}
+                    circleRadius={15} />
+            </g>
+        </svg>
+    )
 }
+
 
 export default Graph;
