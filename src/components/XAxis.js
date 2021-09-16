@@ -10,7 +10,7 @@ const XAxis = ({ xScale, innerHeight }) => {
             .tickSize(-innerHeight)
             .tickPadding(10);
         xAxisG.call(xAxis);
-    }, [])
+    }, [xScale, innerHeight])
 
     return (
         <g ref={ref} transform={`translate(0,${ innerHeight })`} />

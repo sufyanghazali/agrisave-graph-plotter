@@ -10,7 +10,7 @@ const YAxis = ({ yScale, innerWidth }) => {
             .tickSize(-innerWidth)
             .tickPadding(10);
         yAxisG.call(yAxis);
-    }, [])
+    }, [yScale, innerWidth])
 
     return (
         <g ref={ref} />
