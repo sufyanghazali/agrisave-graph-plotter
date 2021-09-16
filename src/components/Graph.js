@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { scaleLinear, scaleTime, extent, line } from "d3";
 
 import Dropdown from './Dropdown';
@@ -40,6 +40,8 @@ const getLabel = (xAttribute) => {
 }
 
 const Graph = ({ data }) => {
+    const [activePoint, setActivePoint] = useState(null);
+
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.left - margin.right;
 
@@ -57,24 +59,33 @@ const Graph = ({ data }) => {
     // Function to format Date object to "day month"
     // const xAxisTickFormat = timeFormat("%d %b");
 
-    const xScale = scaleTime()
-        .domain(extent(data, xValue))
-        .range([0, innerWidth])
-        .nice();
+    const xScale = useMemo(
+        () => scaleTime()
+            .domain(extent(data, xValue))
+            .range([0, innerWidth])
+            .nice(),
+        [data, xValue, innerWidth]);
 
-    const yScale = scaleLinear()
-        .domain(extent(data, yValue))
-        .range([innerHeight, 0])
-        .nice();
+    const yScale = useMemo(
+        () => scaleLinear()
+            .domain(extent(data, yValue))
+            .range([innerHeight, 0])
+            .nice(),
+        [data, yValue, innerHeight]);
 
-    const handleHover = useCallback((data) => {
-        console.log(data);
-        console.log("Hovered on ..");
-    }, [])
+    // const handleHover = useCallback((data) => {
+    //     setActivePoint(data);
+    // }, [])
 
-    const lineGenerator = line()
-        .x(d => xScale(xValue(d)))
-        .y(d => yScale(yValue(d)));
+    // CAN SHORTEN TO THIS
+    const handleHover = useCallback(setActivePoint, []);
+
+    const lineGenerator = useMemo(
+        () => line()
+            .x(d => xScale(xValue(d)))
+            .y(d => yScale(yValue(d)))
+        , [xScale, xValue, yScale, yValue]
+    );
 
     return (
         <>
@@ -112,13 +123,6 @@ const Graph = ({ data }) => {
                         toolTipFormat={(yValue) => (Math.round(yValue * 100) / 100).toFixed(1)}
                         circleRadius={15}
                     />
-
-                    <circle
-                        // how do i get current coordinates for active point
-                        cx={0}
-                        cy={0}
-                        r={3}
-                    />
                     <VoronoiOverlay
                         data={data}
                         onHover={handleHover}
@@ -126,6 +130,19 @@ const Graph = ({ data }) => {
                         innerHeight={innerHeight}
                         lineGenerator={lineGenerator}
                     />
+                    {activePoint ?
+
+                        (
+                            <g className="tooltip" transform={`translate(${ lineGenerator.x()(activePoint) },${ lineGenerator.y()(activePoint) })`}>
+                                <circle
+                                    r={5}
+                                />
+                                <text x={-5} y={-7}>{`${ (activePoint.deviceTemp) }\u00B0C`}</text>
+                            </g>
+                        ) : null
+                    }
+
+
                 </g>
             </svg>
         </>

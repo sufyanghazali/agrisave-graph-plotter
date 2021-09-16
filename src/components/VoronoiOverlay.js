@@ -8,6 +8,11 @@ const VoronoiOverlay = ({
     innerHeight,
     lineGenerator
 }) => {
+    // useMemo(() => {
+    //     console.log("memoizing");
+    // }, [lineGenerator]); //lineGenerator, innerWidth, innerHeight, onHover]);
+
+
     return useMemo(() => {
         console.log("memoizing")
         const points = data.map(d => [lineGenerator.x()(d), lineGenerator.y()(d)]);
@@ -17,7 +22,7 @@ const VoronoiOverlay = ({
         return (
             <g className="voronoi">
                 {points.map((points, i) => (
-                    <path onMouseEnter={(i) => onHover(data[i])} key={i} fill="none" stroke="pink" d={voronoi.renderCell(i)} />
+                    <path onMouseEnter={() => onHover(data[i])} key={i} d={voronoi.renderCell(i)} />
                 ))}
             </g>
         )

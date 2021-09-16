@@ -12,17 +12,6 @@ const Marks = ({ data, xScale, yScale, xValue, yValue, toolTipFormat, circleRadi
                     .y(d => yScale(yValue(d)))(data)
                 }
             />
-            {/* {
-                data.map(d => (
-                    <circle
-                        cx={xScale(xValue(d))}
-                        cy={yScale(yValue(d))}
-                        r={circleRadius}
-                    >
-                        <title>{`${ toolTipFormat(yValue(d)) }\xB0C`}</title>
-                    </circle>
-                ))
-            } */}
         </g>
     );
 }

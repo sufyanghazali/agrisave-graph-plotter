@@ -41,6 +41,18 @@ code {
     stroke-linejoin: round;
 }
 
-.mark circle {
-    fill: transparent;
+.marker-circle {
+    fill: red;
+}
+
+.voronoi path {
+    fill: none;
+    pointer-events: all;
+    /* stroke: pink; */
+}
+
+.tooltip text {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-anchor: end;
 }
