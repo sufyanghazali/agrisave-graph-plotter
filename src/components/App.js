@@ -1,40 +1,27 @@
-import useData from '../hooks/useData';
-
+import React, { useEffect, useState } from 'react';
 import Amplify from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
-import awsExports from '../aws-exports';
+import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
+import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components"
+import awsconfig from '../aws-exports';
 
-import Graph from './Graph';
+import Dashboard from './Dashboard';
 
-Amplify.configure(awsExports);
+
+Amplify.configure(awsconfig);
 
 const App = () => {
+  const [authState, setAuthState] = useState();
+  const [user, setUser] = useState();
 
-  const sensorData = useData();
-  // get a list of sensors - doesnt look like theres a query for that
-  // const [selectedSensor, setSelectedSen] = useState();
-  // const [sensors, setSensors] = useState([]);
+  useEffect(() => {
+    return onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setUser(authData);
+    });
+  }, []);
 
-  if (!sensorData) {
-    return (
-      <div>
-        Loading
-      </div>
-    )
-  }
-
-  return (
-    <>
-      <AmplifyAuthenticator>
-        <div>
-          My App
-          <AmplifySignOut />
-        </div>
-      </AmplifyAuthenticator>
-      <Graph data={sensorData} />
-    </>
-
-  )
+  return authState === AuthState.SignedIn && user ?
+    <Dashboard user={user} /> : <AmplifyAuthenticator />
 }
 
 export default App;

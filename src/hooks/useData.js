@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
 
-const useData = () => {
+const useData = (message) => {
     const [sensorData, setSensorData] = useState(null);
+
+    console.log(`Testing useData argument: ${message}`);
 
     useEffect(() => {
         async function getSensorData() {
             try {
+                // Fetch data from database
                 await API.graphql({
                     query: queries.queryIotCatalogsBySerialNumberIndex,
                     variables: {
@@ -15,9 +18,15 @@ const useData = () => {
                     }
                 })
                     .then(res => {
+                        console.log(res.data.queryIotCatalogsBySerialNumberIndex);
                         const items = res.data.queryIotCatalogsBySerialNumberIndex.items;
                         items.sort((a, b) => a.unixTimeStamp - b.unixTimeStamp);
-                        setSensorData(items);
+
+                        const test = {
+                            data: items,
+                            serialNumber: items[0].serialNumber
+                        }
+                        setSensorData(test);
                     });
 
             } catch (err) {
@@ -25,7 +34,6 @@ const useData = () => {
             }
         }
         getSensorData();
-
     }, []);
 
     return sensorData;
