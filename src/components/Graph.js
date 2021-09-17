@@ -131,13 +131,12 @@ const Graph = ({ data }) => {
                         lineGenerator={lineGenerator}
                     />
                     {activePoint ?
-
                         (
                             <g className="tooltip" transform={`translate(${lineGenerator.x()(activePoint)},${lineGenerator.y()(activePoint)})`}>
                                 <circle
                                     r={5}
                                 />
-                                <text x={-5} y={-7}>{`${(activePoint.deviceTemp)}\u00B0C`}</text>
+                                <text x={-5} y={-7}>{`${(activePoint[xAttribute])}`}</text>
                             </g>
                         ) : null
                     }

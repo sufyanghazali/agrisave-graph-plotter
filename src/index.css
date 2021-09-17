@@ -35,20 +35,17 @@ code {
 
 .marker-line {
     fill: none;
-    stroke: #a2a2a2;
+    /* stroke: #a2a2a2; */
+    stroke: #5ec946;
     stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
-.marker-circle {
-    fill: red;
-}
-
 .voronoi path {
     fill: none;
     pointer-events: all;
-    stroke: pink;
+    /* stroke: pink; */
 }
 
 .tooltip text {
