@@ -50,8 +50,8 @@ const Graph = ({ data }) => {
 
     // Accessor function to pass in map()
     // I feel like these should be named getValue instead
-    const xValue = d => new Date(d.unixTimeStamp); // convert time stamp to Date object
-    const yValue = d => d[xAttribute];
+    const xValue = useCallback(d => new Date(d.unixTimeStamp), []); // convert time stamp to Date object
+    const yValue = useCallback(d => d[xAttribute], []);
 
     const xAxisLabel = "Time";
     const yAxisLabel = getLabel(xAttribute);
@@ -100,14 +100,14 @@ const Graph = ({ data }) => {
             </div>
 
             <svg width={width} height={height}>
-                <g transform={`translate(${ margin.left }, ${ margin.top })`}>
+                <g transform={`translate(${margin.left}, ${margin.top})`}>
 
                     <XAxis xScale={xScale} innerHeight={innerHeight} />
                     <YAxis yScale={yScale} innerWidth={innerWidth} />
 
                     <text
                         textAnchor="middle"
-                        transform={`translate(${ -yAxisLabelOffset }, ${ innerHeight / 2 }) rotate(-90)`}> {yAxisLabel}</text>
+                        transform={`translate(${-yAxisLabelOffset}, ${innerHeight / 2}) rotate(-90)`}> {yAxisLabel}</text>
                     <text
                         x={innerWidth / 2}
                         y={innerHeight + xAxisLabelOffset}
@@ -133,11 +133,11 @@ const Graph = ({ data }) => {
                     {activePoint ?
 
                         (
-                            <g className="tooltip" transform={`translate(${ lineGenerator.x()(activePoint) },${ lineGenerator.y()(activePoint) })`}>
+                            <g className="tooltip" transform={`translate(${lineGenerator.x()(activePoint)},${lineGenerator.y()(activePoint)})`}>
                                 <circle
                                     r={5}
                                 />
-                                <text x={-5} y={-7}>{`${ (activePoint.deviceTemp) }\u00B0C`}</text>
+                                <text x={-5} y={-7}>{`${(activePoint.deviceTemp)}\u00B0C`}</text>
                             </g>
                         ) : null
                     }
