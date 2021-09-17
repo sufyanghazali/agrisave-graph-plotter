@@ -1,6 +1,7 @@
 import useData from '../hooks/useData';
 
 import Amplify from 'aws-amplify';
+import { AmplifyAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import awsExports from '../aws-exports';
 
 import Graph from './Graph';
@@ -23,7 +24,16 @@ const App = () => {
   }
 
   return (
-    <Graph data={sensorData} />
+    <>
+      <AmplifyAuthenticator>
+        <div>
+          My App
+          <AmplifySignOut />
+        </div>
+      </AmplifyAuthenticator>
+      <Graph data={sensorData} />
+    </>
+
   )
 }
 
