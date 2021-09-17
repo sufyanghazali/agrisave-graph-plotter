@@ -1,7 +1,7 @@
 import React from 'react';
 import useData from '../hooks/useData';
 import { AmplifySignOut } from "@aws-amplify/ui-react";
-import Graph from './Graph';
+import GraphContainer from './GraphContainer';
 
 const Dashboard = ({ user }) => {
     const sensorData = useData("hi");
@@ -12,11 +12,10 @@ const Dashboard = ({ user }) => {
 
     return (sensorData) ?
         <div>
-            <h1>Yeet yeet! </h1>
-            <h2>What's up {user.username}?</h2>
-            <Graph data={sensorData.data} />
+            <h1>Welcome {user.username}</h1>
+            <GraphContainer sensor={sensorData} />
             <AmplifySignOut />
-        </div> 
+        </div>
         :
         <div>
             Loading

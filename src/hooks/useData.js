@@ -19,14 +19,10 @@ const useData = (message) => {
                 })
                     .then(res => {
                         console.log(res.data.queryIotCatalogsBySerialNumberIndex);
-                        const items = res.data.queryIotCatalogsBySerialNumberIndex.items;
-                        items.sort((a, b) => a.unixTimeStamp - b.unixTimeStamp);
+                        const data = res.data.queryIotCatalogsBySerialNumberIndex;
+                        data.items.sort((a, b) => a.unixTimeStamp - b.unixTimeStamp);
 
-                        const test = {
-                            data: items,
-                            serialNumber: items[0].serialNumber
-                        }
-                        setSensorData(test);
+                        setSensorData(data);
                     });
 
             } catch (err) {
