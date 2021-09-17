@@ -8,13 +8,7 @@ const VoronoiOverlay = ({
     innerHeight,
     lineGenerator
 }) => {
-    // useMemo(() => {
-    //     console.log("memoizing");
-    // }, [lineGenerator]); //lineGenerator, innerWidth, innerHeight, onHover]);
-
-
     return useMemo(() => {
-        console.log("memoizing")
         const points = data.map(d => [lineGenerator.x()(d), lineGenerator.y()(d)]);
         const delaunay = Delaunay.from(points);
         const voronoi = delaunay.voronoi([0, 0, innerWidth, innerHeight]);

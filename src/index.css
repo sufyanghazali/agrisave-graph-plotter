@@ -48,7 +48,7 @@ code {
 .voronoi path {
     fill: none;
     pointer-events: all;
-    /* stroke: pink; */
+    stroke: pink;
 }
 
 .tooltip text {

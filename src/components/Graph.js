@@ -51,7 +51,7 @@ const Graph = ({ data }) => {
     // Accessor function to pass in map()
     // I feel like these should be named getValue instead
     const xValue = useCallback(d => new Date(d.unixTimeStamp), []); // convert time stamp to Date object
-    const yValue = useCallback(d => d[xAttribute], []);
+    const yValue = useCallback(d => d[xAttribute], [xAttribute]);
 
     const xAxisLabel = "Time";
     const yAxisLabel = getLabel(xAttribute);
@@ -78,7 +78,7 @@ const Graph = ({ data }) => {
     // }, [])
 
     // CAN SHORTEN TO THIS
-    const handleHover = useCallback(setActivePoint, []);
+    const handleHover = useCallback(setActivePoint, [setActivePoint]);
 
     const lineGenerator = useMemo(
         () => line()
