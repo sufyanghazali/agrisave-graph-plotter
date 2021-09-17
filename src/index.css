@@ -53,3 +53,12 @@ code {
     font-weight: 700;
     text-anchor: end;
 }
+
+.navbar {
+    width: 100%;
+    background-color: red;
+    padding: 0 1rem;
+    display: inline-flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
