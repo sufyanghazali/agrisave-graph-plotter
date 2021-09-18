@@ -56,7 +56,7 @@ code {
 
 .navbar {
     width: 100%;
-    background-color: red;
+    background-color: pink;
     padding: 0 1rem;
     display: inline-flex;
     flex-direction: row;
