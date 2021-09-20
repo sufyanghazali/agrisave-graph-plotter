@@ -7,7 +7,6 @@ import awsconfig from '../aws-exports';
 import NavigationBar from './NavigationBar';
 import Dashboard from './Dashboard';
 
-
 Amplify.configure(awsconfig);
 
 const App = () => {
@@ -23,9 +22,14 @@ const App = () => {
 
   return (
     <>
-      <NavigationBar user={user}/>
-
-      {(authState === AuthState.SignedIn && user) ? <Dashboard user={user} /> : <AmplifyAuthenticator />}
+      <NavigationBar user={user} />
+      {
+        // If user is logged in, render dashboard
+        (authState === AuthState.SignedIn && user) ?
+          <Dashboard />
+          :
+          <AmplifyAuthenticator />
+      }
     </>
   )
 }

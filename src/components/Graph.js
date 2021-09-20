@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState, useMemo} from 'react';
 import { scaleLinear, scaleTime, extent, line } from "d3";
 
 import Dropdown from './Dropdown';

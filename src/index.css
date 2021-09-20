@@ -1,64 +1,90 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 .domain {
-    display: none;
+  display: none;
 }
 
 .tick line {
-    stroke: #e0e0e0;
+  stroke: #e0e0e0;
 }
 
 .tick-text {
-    fill: #8e8883;
-    font-size: 12px;
+  fill: #8e8883;
+  font-size: 12px;
 }
 
 .axis-y {
-    text-anchor: end;
+  text-anchor: end;
 }
 
 .axis-x text {
-    text-anchor: middle;
+  text-anchor: middle;
 }
 
 .marker-line {
-    fill: none;
-    /* stroke: #a2a2a2; */
-    stroke: #5ec946;
-    stroke-width: 3;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  fill: none;
+  /* stroke: #a2a2a2; */
+  stroke: #5ec946;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .voronoi path {
-    fill: none;
-    pointer-events: all;
-    /* stroke: pink; */
+  fill: none;
+  pointer-events: all;
+  /* stroke: pink; */
 }
 
 .tooltip text {
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-anchor: end;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-anchor: end;
 }
 
 .navbar {
-    width: 100%;
-    background-color: pink;
-    padding: 0 1rem;
-    display: inline-flex;
-    flex-direction: row;
-    flex-grow: 1;
+  height: 50px;
+  width: 100%;
+  background-color: pink;
+  padding: 0 1rem;
+  display: inline-flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.navbar-logo {
+  margin: auto 0;
+}
+
+.navbar-secondary {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.test {
+  border: 1px solid red;
+}
+
+.dashboard {
+    width: 70%;
+    margin: 0 auto;
 }
