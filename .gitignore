@@ -46,3 +46,4 @@ amplifytools.xcconfig
 
 #personal
 report.txt
+.env

@@ -15,3 +15,14 @@ weather forecasts
 17/09/2021
 
 Working on authentication... :)
+
+
+20/09/2021
+Fetch weather data from OpenWeatherMap and render mp using Google Map api.
+Built react hooks to fetch data. Had some trouble making calls t the APIs.
+Wasn't really sure how to securely store APIs. Current solutions is storing them in  .env file that React access.
+
+22/09/2021
+Built UI components from fetched data.
+Reorganized directory structure
+Had to fiddle around with CSS

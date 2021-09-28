@@ -3,7 +3,7 @@ import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
 
 const useData = () => {
-    const [sensorData, setSensorData] = useState(null);
+    const [sensorData, setSensorData] = useState();
 
     // passing in argument works. should pass in sensor serial number
     // console.log(`Testing useData argument: ${message}`); 
@@ -28,7 +28,6 @@ const useData = () => {
 
                         setSensorData(data);
                     });
-
             } catch (err) {
                 console.log(err);
             }
