@@ -1,0 +1,45 @@
+.graphs {
+    display: flex;
+}
+
+.domain {
+  display: none;
+}
+
+.tick line {
+  stroke: #e0e0e0;
+}
+
+.tick-text {
+  fill: #8e8883;
+  font-size: 12px;
+}
+
+.axis-y {
+  text-anchor: end;
+}
+
+.axis-x text {
+  text-anchor: middle;
+}
+
+.marker-line {
+  fill: none;
+  /* stroke: #a2a2a2; */
+  stroke: #5ec946;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.voronoi path {
+  fill: none;
+  pointer-events: all;
+  /* stroke: pink; */
+}
+
+.tooltip text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-anchor: end;
+}

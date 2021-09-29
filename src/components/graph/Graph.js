@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useMemo} from 'react';
 import { scaleLinear, scaleTime, extent, line } from "d3";
 
-import Dropdown from './Dropdown';
+// import Dropdown from './Dropdown';
 import Marks from './Marks';
 import XAxis from './XAxis';
 import YAxis from './YAxis';
@@ -23,13 +23,13 @@ const attributes = [
     { value: "deviceTemp", label: "Temperature" }
 ]
 
-const getLabel = (xAttribute) => {
+const getLabel = (attribute) => {
     let label = "Attribute not found";
     let i = 0;
     let found = false;
 
     while (!found && i < attributes.length) {
-        if (xAttribute === attributes[i].value) {
+        if (attribute === attributes[i].value) {
             found = true;
             label = attributes[i].label;
         }
@@ -39,22 +39,19 @@ const getLabel = (xAttribute) => {
     return label;
 }
 
-const Graph = ({ data }) => {
+const Graph = ({ data, yAttribute }) => {
     const [activePoint, setActivePoint] = useState(null);
 
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.left - margin.right;
 
-    const initialXAttribute = "deviceTemp";
-    const [xAttribute, setXAttribute] = useState(initialXAttribute);
-
     // Accessor function to pass in map()
     // I feel like these should be named getValue instead
     const xValue = useCallback(d => new Date(d.unixTimeStamp), []); // convert time stamp to Date object
-    const yValue = useCallback(d => d[xAttribute], [xAttribute]);
+    const yValue = useCallback(d => d[yAttribute], [yAttribute]);
 
     const xAxisLabel = "Time";
-    const yAxisLabel = getLabel(xAttribute);
+    const yAxisLabel = getLabel(yAttribute);
 
     // Function to format Date object to "day month"
     // const xAxisTickFormat = timeFormat("%d %b");
@@ -89,7 +86,7 @@ const Graph = ({ data }) => {
 
     return (
         <>
-            <div>
+            {/* <div>
                 <label htmlFor="x-select">X:</label>
                 <Dropdown
                     options={attributes}
@@ -97,7 +94,7 @@ const Graph = ({ data }) => {
                     selectedValue={xAttribute}
                     onSelectedValueChange={setXAttribute}
                 />
-            </div>
+            </div> */}
 
             <svg width={width} height={height}>
                 <g transform={`translate(${margin.left}, ${margin.top})`}>
@@ -136,7 +133,7 @@ const Graph = ({ data }) => {
                                 <circle
                                     r={5}
                                 />
-                                <text x={-5} y={-7}>{`${(activePoint[xAttribute])}`}</text>
+                                <text x={-5} y={-7}>{`${(activePoint[yAttribute])}`}</text>
                             </g>
                         ) : null
                     }

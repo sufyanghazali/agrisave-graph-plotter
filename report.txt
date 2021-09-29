@@ -26,3 +26,9 @@ Wasn't really sure how to securely store APIs. Current solutions is storing them
 Built UI components from fetched data.
 Reorganized directory structure
 Had to fiddle around with CSS
+
+
+- next stage: rebranding
+- machine learning
+ - pass soild data + weather forecasts to predict soild
+agriweiss
