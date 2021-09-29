@@ -1,6 +1,5 @@
 import React from 'react';
 import Dropdown from './Dropdown';
-import { AmplifySignOut } from "@aws-amplify/ui-react";
 import '../../css/navbar.css';
 
 const NavigationBar = ({ user }) => {

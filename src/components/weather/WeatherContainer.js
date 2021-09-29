@@ -11,14 +11,13 @@ const WeatherContainer = ({ sensor }) => {
     // const forecast = useForecast(deviceLat, deviceLon);
 
     if (weather) {
-        console.log(weather);
         const { name } = weather;
         const { description } = weather.weather[0];
         const { speed } = weather.wind;
         const { humidity, temp, temp_max, temp_min } = weather.main;
         const icon = getIcon(weather.weather[0].icon);
-        return (
 
+        return (
             <div>
                 <div className="weather">
                     <div className="weather-tile weather-info">
