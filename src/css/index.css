@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 *::before,
 *::after {
@@ -19,16 +23,52 @@ code {
     monospace;
 }
 
+.aw--green {
+  color: #78bf42;
+}
+
 .test {
   border: 1px solid red;
 }
 
 .dashboard {
-  width: 60%;
+  width: 90%;
   margin: 3rem auto;
 }
 
 .sensor-visual {
   display: flex;
   position: relative;
+}
+
+.landing-page {
+  display: grid;
+}
+
+.landing-page__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.hero {
+    background-image: url(../assets/images/hero.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+
+.hero__text {
+  color: white;
+}
+
+.hero__heading {
+  font-weight: 400;
+
+}
+
+.hero__text.container {
+  margin-bottom: 6rem;
 }

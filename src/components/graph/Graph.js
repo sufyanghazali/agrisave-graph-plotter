@@ -1,14 +1,15 @@
-import React, { useCallback, useState, useMemo} from 'react';
-import { scaleLinear, scaleTime, extent, line } from "d3";
+import React, { useCallback, useMemo } from 'react';
+import { scaleLinear, scaleTime } from "d3";
 
 // import Dropdown from './Dropdown';
 import Marks from './Marks';
 import XAxis from './XAxis';
 import YAxis from './YAxis';
-import VoronoiOverlay from './VoronoiOverlay';
+// import VoronoiOverlay from './VoronoiOverlay';
 
-const height = 500;
-const width = 1000;
+
+const height = 300;
+const width = 700;
 const margin = {
     top: 10,
     right: 70,
@@ -39,8 +40,13 @@ const getLabel = (attribute) => {
     return label;
 }
 
-const Graph = ({ data, yAttribute }) => {
-    const [activePoint, setActivePoint] = useState(null);
+
+
+const Graph = ({ data, forecast, yAttribute }) => {
+    // FOR WEATHER LINE
+
+    // const [activePoint, setActivePoint] = useState(null);
+
 
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.left - margin.right;
@@ -49,6 +55,8 @@ const Graph = ({ data, yAttribute }) => {
     // I feel like these should be named getValue instead
     const xValue = useCallback(d => new Date(d.unixTimeStamp), []); // convert time stamp to Date object
     const yValue = useCallback(d => d[yAttribute], [yAttribute]);
+    const getFutureWeatherX = useCallback(d => new Date(d.dt * 1000), []);
+    const getFutureWeatherY = useCallback(d => d.temp.day, []);
 
     const xAxisLabel = "Time";
     const yAxisLabel = getLabel(yAttribute);
@@ -56,92 +64,108 @@ const Graph = ({ data, yAttribute }) => {
     // Function to format Date object to "day month"
     // const xAxisTickFormat = timeFormat("%d %b");
 
+    // const xScale = useMemo(
+    //     () => scaleTime()
+    //         .domain(extent(data, xValue))
+    //         .range([0, innerWidth])
+    //         .nice(),
+    //     [data, xValue, innerWidth]);
+
+    const maxTemp = weather => {
+        const weatherTemp = weather.map(day => day.temp.day);
+        const sensorTemps = data.map(reading => Number(reading[yAttribute]));
+        return Math.max(...weatherTemp, ...sensorTemps);
+    }
+
+
     const xScale = useMemo(
         () => scaleTime()
-            .domain(extent(data, xValue))
+            .domain([xValue(data[0]), getFutureWeatherX(forecast[forecast.length - 1])])
             .range([0, innerWidth])
             .nice(),
-        [data, xValue, innerWidth]);
+        [data, xValue, innerWidth, forecast, getFutureWeatherX]
+    );
+
+
+    // TODO: Need to change yScale domain to accomodate combined data sets
+    // const yScale = useMemo(
+    //     () => scaleLinear()
+    //         .domain(extent(data, yValue))
+    //         .range([innerHeight, 0])
+    //         .nice(),
+    //     [data, yValue, innerHeight]);
 
     const yScale = useMemo(
         () => scaleLinear()
-            .domain(extent(data, yValue))
+            .domain([yValue(data[0]), maxTemp(forecast)])
             .range([innerHeight, 0])
             .nice(),
-        [data, yValue, innerHeight]);
+        [data, maxTemp, forecast, yValue, innerHeight]);
 
-    // const handleHover = useCallback((data) => {
-    //     setActivePoint(data);
-    // }, [])
 
-    // CAN SHORTEN TO THIS
-    const handleHover = useCallback(setActivePoint, [setActivePoint]);
+    // const handleHover = useCallback(setActivePoint, [setActivePoint]);
 
-    const lineGenerator = useMemo(
-        () => line()
-            .x(d => xScale(xValue(d)))
-            .y(d => yScale(yValue(d)))
-        , [xScale, xValue, yScale, yValue]
-    );
+    // const lineGenerator = useMemo(
+    //     () => line()
+    //         .x(d => xScale(xValue(d)))
+    //         .y(d => yScale(yValue(d)))
+    //     , [xScale, xValue, yScale, yValue]
+    // );
 
     return (
-        <>
-            {/* <div>
-                <label htmlFor="x-select">X:</label>
-                <Dropdown
-                    options={attributes}
-                    id="x-select"
-                    selectedValue={xAttribute}
-                    onSelectedValueChange={setXAttribute}
+        <svg width={width} height={height}>
+            <g transform={`translate(${margin.left}, ${margin.top})`}>
+
+                <XAxis xScale={xScale} innerHeight={innerHeight} />
+                <YAxis yScale={yScale} innerWidth={innerWidth} />
+
+                <text
+                    textAnchor="middle"
+                    transform={`translate(${-yAxisLabelOffset}, ${innerHeight / 2}) rotate(-90)`}> {yAxisLabel}</text>
+                <text
+                    x={innerWidth / 2}
+                    y={innerHeight + xAxisLabelOffset}
+                    textAnchor="middle"
+                >{xAxisLabel}</text>
+
+                <Marks
+                    data={data}
+                    xScale={xScale}
+                    yScale={yScale}
+                    xValue={xValue}
+                    yValue={yValue}
+                    toolTipFormat={(yValue) => (Math.round(yValue * 100) / 100).toFixed(1)}
                 />
-            </div> */}
-
-            <svg width={width} height={height}>
-                <g transform={`translate(${margin.left}, ${margin.top})`}>
-
-                    <XAxis xScale={xScale} innerHeight={innerHeight} />
-                    <YAxis yScale={yScale} innerWidth={innerWidth} />
-
-                    <text
-                        textAnchor="middle"
-                        transform={`translate(${-yAxisLabelOffset}, ${innerHeight / 2}) rotate(-90)`}> {yAxisLabel}</text>
-                    <text
-                        x={innerWidth / 2}
-                        y={innerHeight + xAxisLabelOffset}
-                        textAnchor="middle"
-                    >{xAxisLabel}</text>
-
-                    <Marks
-                        data={data}
-                        xScale={xScale}
-                        yScale={yScale}
-                        xValue={xValue}
-                        yValue={yValue}
-                        toolTipFormat={(yValue) => (Math.round(yValue * 100) / 100).toFixed(1)}
-                        circleRadius={15}
-                    />
-                    <VoronoiOverlay
-                        data={data}
-                        onHover={handleHover}
-                        innerWidth={innerWidth}
-                        innerHeight={innerHeight}
-                        lineGenerator={lineGenerator}
-                    />
-                    {activePoint ?
-                        (
-                            <g className="tooltip" transform={`translate(${lineGenerator.x()(activePoint)},${lineGenerator.y()(activePoint)})`}>
-                                <circle
-                                    r={5}
-                                />
-                                <text x={-5} y={-7}>{`${(activePoint[yAttribute])}`}</text>
-                            </g>
-                        ) : null
-                    }
+                <Marks
+                    tag="environment"
+                    data={forecast}
+                    xScale={xScale}
+                    yScale={yScale}
+                    xValue={getFutureWeatherX}
+                    yValue={getFutureWeatherY}
+                    toolTipFormat={(yValue) => (Math.round(yValue * 100) / 100).toFixed(1)}
+                />
+                {/* <VoronoiOverlay
+                    data={data}
+                    onHover={handleHover}
+                    innerWidth={innerWidth}
+                    innerHeight={innerHeight}
+                    lineGenerator={lineGenerator}
+                />
+                {activePoint ?
+                    (
+                        <g className="tooltip" transform={`translate(${lineGenerator.x()(activePoint)},${lineGenerator.y()(activePoint)})`}>
+                            <circle
+                                r={5}
+                            />
+                            <text x={-5} y={-7}>{`${(activePoint[yAttribute])}`}</text>
+                        </g>
+                    ) : null
+                } */}
 
 
-                </g>
-            </svg>
-        </>
+            </g>
+        </svg>
     )
 }
 

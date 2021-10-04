@@ -11,17 +11,14 @@ const icons = [
 ]
 
 export const getIcon = (icon) => {
-    console.log(icon.slice(0, 2));
     let className = null;
     let found = false;
     let i = 0;
 
     while (!found && i < icons.length) {
         if (icon.slice(0, 2) === icons[i].code) {
-            console.log('entered');
             found = true;
             className = icons[i].iconClass;
-            console.log("HI", icons[i].iconClass);
         }
         i++;
     }

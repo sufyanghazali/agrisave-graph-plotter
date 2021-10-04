@@ -1,9 +1,7 @@
 import React from 'react';
 import { getIcon } from '../../util';
 
-
 const ForecastInfo = ({ day, isToday }) => {
-
 
     const date = new Date(day.dt * 1000);
     const dateString = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date)

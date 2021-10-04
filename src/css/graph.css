@@ -1,5 +1,5 @@
 .graphs {
-    display: flex;
+  display: flex;
 }
 
 .domain {
@@ -27,15 +27,19 @@
   fill: none;
   /* stroke: #a2a2a2; */
   stroke: #5ec946;
-  stroke-width: 4;
+  stroke-width: 3.5;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.environment.marker-line {
+  stroke: orange;
 }
 
 .voronoi path {
   fill: none;
   pointer-events: all;
-  /* stroke: pink; */
+  stroke: pink;
 }
 
 .tooltip text {

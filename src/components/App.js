@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
 import Amplify from 'aws-amplify';
-import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components"
 import awsconfig from '../aws-exports';
 
 import NavigationBar from './navbar/NavigationBar';
 import Dashboard from './Dashboard';
+import LandingPage from "./landing/LandingPage";
+import LoginPage from "./landing/LoginPage";
 
 Amplify.configure(awsconfig);
 
@@ -21,16 +30,25 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <Router>
       <NavigationBar user={user} />
-      {
-        // If user is logged in, render dashboard
-        (authState === AuthState.SignedIn && user) ?
-          <Dashboard />
-          :
-          <AmplifyAuthenticator />
-      }
-    </>
+
+      <Switch>
+        <Route exact path="/">
+          {(authState === AuthState.SignedIn && user) ?
+            <Dashboard />
+            :
+            <LandingPage />
+          }
+        </Route>
+        <Route path="/login">
+          {user ? <Redirect to="/" /> : <LoginPage />}
+        </Route>
+
+
+      </Switch>
+
+    </Router>
   )
 }
 

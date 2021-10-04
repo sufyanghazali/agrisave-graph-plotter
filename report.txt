@@ -30,5 +30,11 @@ Had to fiddle around with CSS
 
 - next stage: rebranding
 - machine learning
- - pass soild data + weather forecasts to predict soild
+- pass soil data + weather forecasts to predict soild
 agriweiss
+
+
+4/10/2021
+
+- started working on landing page
+- integrated tailwind css. decided to use instead of other frameworks just wanted the utility classes

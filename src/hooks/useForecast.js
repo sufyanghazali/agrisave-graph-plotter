@@ -6,9 +6,13 @@ const useForecast = (lat, lon) => {
     useEffect(() => {
         async function getForecast() {
             try {
-                await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API}&units=metric&exclude=current,minutely,hourly,alerts`)
+                await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API}&units=metric&exclude=current,minutely,alerts`)
                     .then(res => res.json())
-                    .then(data => setForecast(data.daily.slice(0,4)));
+                    .then(data => {
+                        console.log(data);
+                        setForecast(data.daily)
+
+                    });
             } catch (err) {
                 console.log(err);
             }
