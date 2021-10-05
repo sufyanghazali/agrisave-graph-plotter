@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "graphplotter3203e363_identitypool_3203e363",
+    "identityPoolName": "agriweiss202b94615_identitypool_02b94615",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "graphp3203e363",
-    "userPoolName": "graphplotter3203e363_userpool_3203e363",
+    "resourceNameTruncated": "agriwe02b94615",
+    "userPoolName": "agriweiss202b94615_userpool_02b94615",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -20,10 +20,7 @@
     "requiredAttributes": [
         "email"
     ],
-    "aliasAttributes": [
-        "email",
-        "preferred_username"
-    ],
+    "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
@@ -32,10 +29,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "graphp3203e363_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "agriwe02b94615_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "3203e363",
-    "resourceName": "graphplotter3203e363",
+    "sharedId": "02b94615",
+    "resourceName": "agriweiss202b94615",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [

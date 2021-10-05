@@ -1,19 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-graphplotter-dev-141900-authRole",
-      "UnauthRoleArn": "arn:aws:iam::803946192019:role/amplify-graphplotter-dev-141900-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::803946192019:role/amplify-graphplotter-dev-141900-authRole",
+      "AuthRoleName": "amplify-agriweiss2-dev-181013-authRole",
+      "UnauthRoleArn": "arn:aws:iam::803946192019:role/amplify-agriweiss2-dev-181013-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::803946192019:role/amplify-agriweiss2-dev-181013-authRole",
       "Region": "ap-southeast-2",
-      "DeploymentBucketName": "amplify-graphplotter-dev-141900-deployment",
-      "UnauthRoleName": "amplify-graphplotter-dev-141900-unauthRole",
-      "StackName": "amplify-graphplotter-dev-141900",
-      "StackId": "arn:aws:cloudformation:ap-southeast-2:803946192019:stack/amplify-graphplotter-dev-141900/2bf0c9f0-095a-11ec-ae4b-0626f4c0f5f4",
-      "AmplifyAppId": "dgk6scwgwdd3c"
+      "DeploymentBucketName": "amplify-agriweiss2-dev-181013-deployment",
+      "UnauthRoleName": "amplify-agriweiss2-dev-181013-unauthRole",
+      "StackName": "amplify-agriweiss2-dev-181013",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:803946192019:stack/amplify-agriweiss2-dev-181013/732ed6f0-25c4-11ec-9124-06c7fb2f0348",
+      "AmplifyAppId": "d3rfw79kzoowdd"
     },
     "categories": {
       "auth": {
-        "graphplotter3203e363": {}
+        "agriweiss202b94615": {}
       }
     }
   }

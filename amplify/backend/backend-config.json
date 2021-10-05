@@ -1,13 +1,12 @@
 {
   "auth": {
-    "graphplotter3203e363": {
+    "agriweiss202b94615": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
         "loginMechanisms": [
-          "EMAIL",
           "PREFERRED_USERNAME"
         ],
         "signupAttributes": [
@@ -20,6 +19,9 @@
         "mfaConfiguration": "OFF",
         "mfaTypes": [
           "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
         ]
       }
     }
