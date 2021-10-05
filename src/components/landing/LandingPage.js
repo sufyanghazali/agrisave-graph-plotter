@@ -30,9 +30,6 @@ const LandingPage = () => {
                     </div>
                 </div>
             </div>
-
-            <AmplifyAuthenticator />
-
         </div>
     )
 }
