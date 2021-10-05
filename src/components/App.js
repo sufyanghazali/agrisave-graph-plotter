@@ -27,7 +27,7 @@ const App = () => {
       setAuthState(nextAuthState);
       setUser(authData);
     });
-  }, []);
+  }, [authState]);
 
   return (
     <Router>
