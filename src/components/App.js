@@ -12,7 +12,7 @@ import NavigationBar from './navbar/NavigationBar';
 import Dashboard from './Dashboard';
 import LandingPage from "./landing/LandingPage";
 import LoginPage from "./landing/LoginPage";
-import { AmplifyAuthenticator, AmplifyConfirmSignUp } from "@aws-amplify/ui-react";
+import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 
 import Amplify from "aws-amplify";
 import awsExports from "../aws-exports";
@@ -44,15 +44,7 @@ const App = () => {
           }
         </Route>
         <Route path="/login">
-          {user ? <Redirect to="/" /> : <LoginPage />}
-        </Route>
-        <Route path="/confirm">
-          <AmplifyAuthenticator>
-            <AmplifyConfirmSignUp
-              headerText="My Custom Confirm Sign In Text"
-              slot="confirm-sign-in">
-            </AmplifyConfirmSignUp>
-          </AmplifyAuthenticator>
+          {user ? <Redirect to="/" /> : <LoginPage authState={authState} />}
         </Route>
       </Switch>
     </Router>

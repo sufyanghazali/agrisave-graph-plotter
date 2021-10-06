@@ -1,9 +1,18 @@
 import React from "react";
-import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
+import { AmplifyAuthenticator, AmplifyConfirmSignUp } from "@aws-amplify/ui-react";
 
-const LoginPage = () => {
+const LoginPage = ({ authState }) => {
     return (
-        <AmplifyAuthenticator />
+        <AmplifyAuthenticator>
+            {
+                authState === "confirmSignUp" &&
+                <AmplifyConfirmSignUp
+                    headerText="My Custom Confirm Sign In Text"
+                    slot="confirm-sign-in">
+                </AmplifyConfirmSignUp>
+            }
+
+        </AmplifyAuthenticator>
     )
 }
 
