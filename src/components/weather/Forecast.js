@@ -1,15 +1,16 @@
 import React from 'react';
-import useForecast from "../../hooks/useForecast";
 import ForecastInfo from './ForecastInfo';
 
 const Forecast = ({ forecast }) => {
+
+    let items = [];
+    for (let i = 0; i < 4; i++) {
+        items.push(<ForecastInfo day={forecast[i]} isToday={i === 0} key={forecast[i].dt} />)
+    }
+
     return (
         <div className="forecasts">
-            {forecast.map((day, i) => {
-                return (
-                    <ForecastInfo day={day} isToday={i === 0} key={day.dt} />
-                );
-            })}
+            {items}
         </div>
     );
 }

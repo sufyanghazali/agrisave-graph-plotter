@@ -14,6 +14,9 @@ import LandingPage from "./landing/LandingPage";
 import LoginPage from "./landing/LoginPage";
 import { AmplifyAuthenticator, AmplifyConfirmSignUp } from "@aws-amplify/ui-react";
 
+import Amplify from "aws-amplify";
+import awsExports from "../aws-exports";
+Amplify.configure(awsExports);
 
 const App = () => {
   const [authState, setAuthState] = useState();
@@ -26,6 +29,8 @@ const App = () => {
     });
   }, [authState, user]);
 
+  console.log(user);
+
   return (
     <Router>
       <NavigationBar user={user} />
@@ -37,7 +42,6 @@ const App = () => {
             :
             <LandingPage />
           }
-
         </Route>
         <Route path="/login">
           {user ? <Redirect to="/" /> : <LoginPage />}
@@ -50,7 +54,6 @@ const App = () => {
             </AmplifyConfirmSignUp>
           </AmplifyAuthenticator>
         </Route>
-
       </Switch>
     </Router>
   )

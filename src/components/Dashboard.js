@@ -6,11 +6,7 @@ import GraphContainer from './graph/GraphContainer';
 import WeatherContainer from './weather/WeatherContainer';
 import Map from './map/Map';
 
-import Amplify from 'aws-amplify';
-import awsconfig from '../aws-exports';
-Amplify.configure(awsconfig);
-
-console.log(process.env.REACT_APP_WEATHER_API);
+console.log(API);
 
 const Dashboard = () => {
     const [sensorData, setSensorData] = useState();
