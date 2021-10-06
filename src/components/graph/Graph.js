@@ -47,7 +47,6 @@ const Graph = ({ data, forecast, yAttribute }) => {
 
     // const [activePoint, setActivePoint] = useState(null);
 
-
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.left - margin.right;
 
@@ -64,43 +63,27 @@ const Graph = ({ data, forecast, yAttribute }) => {
     // Function to format Date object to "day month"
     // const xAxisTickFormat = timeFormat("%d %b");
 
-    // const xScale = useMemo(
-    //     () => scaleTime()
-    //         .domain(extent(data, xValue))
-    //         .range([0, innerWidth])
-    //         .nice(),
-    //     [data, xValue, innerWidth]);
-
-    const maxTemp = weather => {
-        const weatherTemp = weather.map(day => day.temp.day);
+    const maxTemp = useCallback(() => {
+        const weatherTemp = forecast.map(day => day.temp.day);
         const sensorTemps = data.map(reading => Number(reading[yAttribute]));
         return Math.max(...weatherTemp, ...sensorTemps);
-    }
+    },
+        [data, forecast, yAttribute]
+    );
 
-
-    const xScale = useMemo(
-        () => scaleTime()
-            .domain([xValue(data[0]), getFutureWeatherX(forecast[forecast.length - 1])])
-            .range([0, innerWidth])
-            .nice(),
+    const xScale = useMemo(() => scaleTime()
+        .domain([xValue(data[0]), getFutureWeatherX(forecast[forecast.length - 1])])
+        .range([0, innerWidth])
+        .nice(),
         [data, xValue, innerWidth, forecast, getFutureWeatherX]
     );
 
-
-    // TODO: Need to change yScale domain to accomodate combined data sets
-    // const yScale = useMemo(
-    //     () => scaleLinear()
-    //         .domain(extent(data, yValue))
-    //         .range([innerHeight, 0])
-    //         .nice(),
-    //     [data, yValue, innerHeight]);
-
-    const yScale = useMemo(
-        () => scaleLinear()
-            .domain([yValue(data[0]), maxTemp(forecast)])
-            .range([innerHeight, 0])
-            .nice(),
-        [data, maxTemp, forecast, yValue, innerHeight]);
+    const yScale = useMemo(() => scaleLinear()
+        .domain([yValue(data[0]), maxTemp(forecast)])
+        .range([innerHeight, 0])
+        .nice(),
+        [data, maxTemp, forecast, yValue, innerHeight]
+    );
 
 
     // const handleHover = useCallback(setActivePoint, [setActivePoint]);
@@ -114,14 +97,14 @@ const Graph = ({ data, forecast, yAttribute }) => {
 
     return (
         <svg width={width} height={height}>
-            <g transform={`translate(${margin.left}, ${margin.top})`}>
+            <g transform={`translate(${ margin.left }, ${ margin.top })`}>
 
                 <XAxis xScale={xScale} innerHeight={innerHeight} />
                 <YAxis yScale={yScale} innerWidth={innerWidth} />
 
                 <text
                     textAnchor="middle"
-                    transform={`translate(${-yAxisLabelOffset}, ${innerHeight / 2}) rotate(-90)`}> {yAxisLabel}</text>
+                    transform={`translate(${ -yAxisLabelOffset }, ${ innerHeight / 2 }) rotate(-90)`}> {yAxisLabel}</text>
                 <text
                     x={innerWidth / 2}
                     y={innerHeight + xAxisLabelOffset}
@@ -162,8 +145,6 @@ const Graph = ({ data, forecast, yAttribute }) => {
                         </g>
                     ) : null
                 } */}
-
-
             </g>
         </svg>
     )
