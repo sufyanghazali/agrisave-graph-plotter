@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
-
 import GraphContainer from './graph/GraphContainer';
 import WeatherContainer from './weather/WeatherContainer';
 import Map from './map/Map';
+
+import Amplify from 'aws-amplify';
+import awsconfig from '../aws-exports';
+Amplify.configure(awsconfig);
+
+console.log(process.env.REACT_APP_WEATHER_API);
 
 const Dashboard = () => {
     const [sensorData, setSensorData] = useState();
@@ -45,7 +50,7 @@ const Dashboard = () => {
     useEffect(() => {
         async function getWeather() {
             try {
-                await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&appid=${process.env.REACT_APP_WEATHER_API}&units=metric&exclude=minutely,alerts`)
+                await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${ coordinates.lat }&lon=${ coordinates.lng }&appid=${ process.env.REACT_APP_WEATHER_API }&units=metric&exclude=minutely,alerts`)
                     .then(res => res.json())
                     .then(data => {
                         setWeather(data.current);
