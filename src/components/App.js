@@ -38,14 +38,11 @@ const App = () => {
 
       <Switch>
         <Route exact path="/">
-          {(authState === AuthState.SignedIn && user) ?
-            <Dashboard />
-            :
-            <LandingPage />
+          {(authState === AuthState.SignedIn && user) ? <Dashboard /> : <LandingPage />
           }
         </Route>
         <Route path="/login">
-          {user ? <Redirect to="/" /> : <LoginPage authState={authState} />}
+          {(authState === AuthState.SignedIn && user) ? <Redirect to="/" /> : <LoginPage authState={authState} />}
         </Route>
       </Switch>
     </Router>
