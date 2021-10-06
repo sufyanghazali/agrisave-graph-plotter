@@ -29,6 +29,7 @@ const App = () => {
     });
   }, [authState, user]);
 
+  console.log(authState)
   console.log(user);
 
   return (
