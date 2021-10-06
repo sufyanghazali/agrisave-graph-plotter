@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from "react-router-dom";
 
@@ -15,6 +14,7 @@ import NavigationBar from './navbar/NavigationBar';
 import Dashboard from './Dashboard';
 import LandingPage from "./landing/LandingPage";
 import LoginPage from "./landing/LoginPage";
+import { AmplifyAuthenticator, AmplifyConfirmSignUp } from "@aws-amplify/ui-react";
 
 Amplify.configure(awsconfig);
 
@@ -27,7 +27,10 @@ const App = () => {
       setAuthState(nextAuthState);
       setUser(authData);
     });
-  }, [authState]);
+  }, [authState, user]);
+
+  console.log(authState, user)
+  console.log(AuthState.SignedIn);
 
   return (
     <Router>
@@ -35,19 +38,31 @@ const App = () => {
 
       <Switch>
         <Route exact path="/">
-          {(authState === AuthState.SignedIn && user) ?
+      
+
+          {
+          
+          
+          (authState === AuthState.SignedIn && user) ?
             <Dashboard />
             :
             <LandingPage />
           }
+
         </Route>
         <Route path="/login">
           {user ? <Redirect to="/" /> : <LoginPage />}
         </Route>
-
+        <Route path="/confirm">
+          <AmplifyAuthenticator>
+            <AmplifyConfirmSignUp
+              headerText="My Custom Confirm Sign In Text"
+              slot="confirm-sign-in">
+            </AmplifyConfirmSignUp>
+          </AmplifyAuthenticator>
+        </Route>
 
       </Switch>
-
     </Router>
   )
 }

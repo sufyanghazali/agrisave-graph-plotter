@@ -3,9 +3,6 @@ import { landingPageText, icons } from "../../assets/text";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Card from "./Card";
 
-import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
-
-
 const LandingPage = () => {
     return (
         <div className="landing-page">
