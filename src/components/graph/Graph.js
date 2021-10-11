@@ -17,35 +17,12 @@ const margin = {
     bottom: 50,
     left: 60
 };
-const xAxisLabelOffset = 40;
 const yAxisLabelOffset = 40;
-
-const attributes = [
-    { value: "deviceMos", label: "Moisture" },
-    { value: "deviceTemp", label: "Temperature" }
-]
-
-const getLabel = (attribute) => {
-    let label = "Attribute not found";
-    let i = 0;
-    let found = false;
-
-    while (!found && i < attributes.length) {
-        if (attribute === attributes[i].value) {
-            found = true;
-            label = attributes[i].label;
-        }
-        i++;
-    }
-
-    return label;
-}
+const tooltipOffset = -7;
 
 
-
-const Graph = ({ data, forecast, yAttribute }) => {
+const Graph = ({ data, forecast, yLabel }) => {
     // FOR WEATHER LINE
-
     const [activePoint, setActivePoint] = useState(null);
 
     const innerHeight = height - margin.top - margin.bottom;
@@ -53,23 +30,20 @@ const Graph = ({ data, forecast, yAttribute }) => {
 
     // Accessor function to pass in map()
     // I feel like these should be named getValue instead
-    const xValue = useCallback(d => new Date(d.unixTimeStamp), []); // convert time stamp to Date object
-    const yValue = useCallback(d => d[yAttribute], [yAttribute]);
-    const getFutureWeatherX = useCallback(d => new Date(d.dt * 1000), []);
-    const getFutureWeatherY = useCallback(d => d.temp.day, []);
-
-    const xAxisLabel = "Time";
-    const yAxisLabel = getLabel(yAttribute);
+    const xValue = useCallback(d => new Date(d.x), []); // convert time stamp to Date object
+    const yValue = useCallback(d => d.y, []);
+    const getFutureWeatherX = useCallback(d => new Date(d.x), []);
+    const getFutureWeatherY = useCallback(d => d.y, []);
 
     // Function to format Date object to "day month"
     // const xAxisTickFormat = timeFormat("%d %b");
 
     const maxTemp = useCallback(() => {
-        const weatherTemp = forecast.map(day => day.temp.day);
-        const sensorTemps = data.map(reading => Number(reading[yAttribute]));
+        const weatherTemp = forecast.map(day => day.y);
+        const sensorTemps = data.map(reading => Number(reading.y));
         return Math.max(...weatherTemp, ...sensorTemps);
     },
-        [data, forecast, yAttribute]
+        [data, forecast]
     );
 
     const xScale = useMemo(() => scaleTime()
@@ -86,7 +60,6 @@ const Graph = ({ data, forecast, yAttribute }) => {
         [data, maxTemp, yValue, innerHeight]
     );
 
-
     const handleHover = useCallback(setActivePoint, [setActivePoint]);
 
     // const lineGenerator = useMemo(
@@ -96,23 +69,20 @@ const Graph = ({ data, forecast, yAttribute }) => {
     //     , [xScale, xValue, yScale, yValue]
     // );
 
-    console.log(activePoint);
-
     return (
         <svg width={width} height={height}>
-            <g transform={`translate(${ margin.left }, ${ margin.top })`}>
-
+            <g
+                transform={`translate(${ margin.left }, ${ margin.top })`}
+                onMouseLeave={() => handleHover(null)}
+            >
                 <XAxis xScale={xScale} innerHeight={innerHeight} />
                 <YAxis yScale={yScale} innerWidth={innerWidth} />
 
                 <text
                     textAnchor="middle"
-                    transform={`translate(${ -yAxisLabelOffset }, ${ innerHeight / 2 }) rotate(-90)`}> {yAxisLabel}</text>
-                {/* <text
-                    x={innerWidth / 2}
-                    y={innerHeight + xAxisLabelOffset}
-                    textAnchor="middle"
-                >{xAxisLabel}</text> */}
+                    transform={`translate(${ -yAxisLabelOffset }, ${ innerHeight / 2 }) rotate(-90)`}>
+                    {yLabel}
+                </text>
 
                 <Marks
                     data={data}
@@ -120,7 +90,6 @@ const Graph = ({ data, forecast, yAttribute }) => {
                     yScale={yScale}
                     xValue={xValue}
                     yValue={yValue}
-                    toolTipFormat={(yValue) => (Math.round(yValue * 100) / 100).toFixed(1)}
                     onHover={handleHover}
                 />
                 <Marks
@@ -130,24 +99,22 @@ const Graph = ({ data, forecast, yAttribute }) => {
                     yScale={yScale}
                     xValue={getFutureWeatherX}
                     yValue={getFutureWeatherY}
-                    toolTipFormat={(yValue) => (Math.round(yValue * 100) / 100).toFixed(1)}
                     onHover={handleHover}
                 />
 
-                {/* <VoronoiOverlay
-                    data={data}
-                    onHover={handleHover}
-                    innerWidth={innerWidth}
-                    innerHeight={innerHeight}
-                    lineGenerator={lineGenerator}
-                /> */}
                 {activePoint ?
-                    (
-
-                        <text x={10} y={10}>{`${ (activePoint[yAttribute]) }`}</text>
-
-                    ) : null
+                    <text
+                        x={xScale(xValue(activePoint))}
+                        y={yScale(yValue(activePoint))}
+                        dy={tooltipOffset}
+                        textAnchor="middle"
+                        className="font-medium"
+                    >
+                        {`${ Math.round(activePoint.y) }`}
+                    </text>
+                    : null
                 }
+
             </g>
         </svg>
     )

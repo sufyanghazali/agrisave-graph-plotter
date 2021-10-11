@@ -2,7 +2,7 @@ import React from 'react';
 import { line } from 'd3-shape';
 
 
-const Marks = ({ data, xScale, yScale, xValue, yValue, toolTipFormat, tag, onHover }) => {
+const Marks = ({ data, xScale, yScale, xValue, yValue, tag, onHover }) => {
 
     return (
         <>
@@ -15,16 +15,21 @@ const Marks = ({ data, xScale, yScale, xValue, yValue, toolTipFormat, tag, onHov
                     }
                 />
             </g>
-            {data.map((d, i) => (
-                <circle
-                    cx={xScale(xValue(d))}
-                    cy={yScale(yValue(d))}
-                    r={10}
-                    onMouseEnter={() => {
-                        onHover(data[i])
-                    }}
-                ></circle>
-            ))}
+            {data.map((d, i) => {
+                return (
+                    <circle
+                        key={i}
+                        cx={xScale(xValue(d))}
+                        cy={yScale(yValue(d))}
+                        r={6}
+                        onMouseEnter={() => {
+                            onHover(data[i])
+                        }}
+                        fill="transparent"
+                    ></circle>
+                )
+            }
+            )}
         </>
     );
 }

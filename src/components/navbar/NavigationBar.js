@@ -20,7 +20,7 @@ const NavigationBar = ({ user }) => {
                 {user ? <Dropdown user={user} /> :
 
                     <Link to="/login" history="/">
-                        <button className="bg-awGreen px-6 py-3 text-white font-medium">Log in</button>
+                        <button className="bg-awGreen px-6 py-3 text-white font-medium rounded-md">Log in</button>
                     </Link>
                 }
             </div>

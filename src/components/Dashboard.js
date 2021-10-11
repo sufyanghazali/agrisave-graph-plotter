@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 
 import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
@@ -7,13 +7,16 @@ import WeatherContainer from './weather/WeatherContainer';
 import Map from './map/Map';
 import Widget from './ui/Widget';
 
-console.log(API);
+import useWindowSize from '../hooks/useWindowSize';
 
 const Dashboard = () => {
     const [sensorData, setSensorData] = useState();
     const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
     const [weather, setWeather] = useState();
     const [forecast, setForecast] = useState();
+    const size = useWindowSize();
+
+
 
     useEffect(() => {
         async function getSensorData() {
@@ -60,19 +63,17 @@ const Dashboard = () => {
         getWeather();
     }, [coordinates.lat, coordinates.lng]);
 
-    // useEffect(() => {
-    //     async function getWeather() {
+    const getMoistureReadings = useCallback(() => {
+        return sensorData.items.map(reading => ({ x: reading.unixTimeStamp, y: +reading.deviceMos }))
+    }, [sensorData]);
 
-    //     }
-    //     getWeather();
+    const getTemperatureReadings = useCallback(() => {
+        return sensorData.items.map(reading => ({ x: reading.unixTimeStamp, y: +reading.deviceTemp }))
+    }, [sensorData]);
 
-    // }, [coordinates.lat, coordinates.lng]);
-
-    const formatSensorData = useCallback(() => {
-        return sensorData.map(reading => {
-
-        })
-    }, []);
+    const formatForecast = useCallback(() => {
+        return forecast.map(day => ({ x: day.dt * 1000, y: day.temp.day }))
+    }, [forecast]);
 
     return (sensorData && forecast) ?
         <div className="dashboard py-8 px-16">
@@ -84,13 +85,15 @@ const Dashboard = () => {
                     <Map coordinates={coordinates} zoom={16} />
                 </Widget>
                 <Widget>
-                    <Graph data={sensorData.items} yAttribute="deviceTemp" forecast={forecast} />
+                    <Graph data={getMoistureReadings()} forecast={formatForecast()} yLabel="Moisture" />
                 </Widget>
                 <Widget>
-                    <Graph data={sensorData.items} yAttribute="deviceMos" forecast={forecast} />
+                    <Graph data={getTemperatureReadings()} forecast={formatForecast()} yLabel="Temperature  " />
                 </Widget>
+                <div>
+                    {size.width}px / {size.height}px
+                </div>
             </div>
-
         </div>
         :
         <div>
