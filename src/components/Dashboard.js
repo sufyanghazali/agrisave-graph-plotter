@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 
 import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
-import GraphContainer from './graph/GraphContainer';
+import Graph from './graph/Graph';
 import WeatherContainer from './weather/WeatherContainer';
 import Map from './map/Map';
 import Widget from './ui/Widget';
@@ -58,11 +58,25 @@ const Dashboard = () => {
             }
         }
         getWeather();
-    }, [coordinates.lat, coordinates.lng])
+    }, [coordinates.lat, coordinates.lng]);
+
+    // useEffect(() => {
+    //     async function getWeather() {
+
+    //     }
+    //     getWeather();
+
+    // }, [coordinates.lat, coordinates.lng]);
+
+    const formatSensorData = useCallback(() => {
+        return sensorData.map(reading => {
+
+        })
+    }, []);
 
     return (sensorData && forecast) ?
-        <div className="dashboard">
-            <div className="container mx-auto grid grid-cols-3">
+        <div className="dashboard py-8 px-16">
+            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 xl xl:grid-cols-3 gap-4">
                 <Widget>
                     <WeatherContainer weather={weather} forecast={forecast} />
                 </Widget>
@@ -70,7 +84,10 @@ const Dashboard = () => {
                     <Map coordinates={coordinates} zoom={16} />
                 </Widget>
                 <Widget>
-                    <GraphContainer sensor={sensorData} forecast={forecast} />
+                    <Graph data={sensorData.items} yAttribute="deviceTemp" forecast={forecast} />
+                </Widget>
+                <Widget>
+                    <Graph data={sensorData.items} yAttribute="deviceMos" forecast={forecast} />
                 </Widget>
             </div>
 

@@ -8,7 +8,7 @@ import {
 
 const NavigationBar = ({ user }) => {
     return (
-        <nav className="navbar">
+        <nav className="navbar shadow">
             <div className="navbar-logo">
                 <Link to="/">
                     {/* <a href="/" rel="home" aria-current="page"> */}

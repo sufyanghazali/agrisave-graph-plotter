@@ -1,5 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { scaleLinear, scaleTime } from "d3";
+import '../../css/graph.css';
 
 // import Dropdown from './Dropdown';
 import Marks from './Marks';
@@ -45,7 +46,7 @@ const getLabel = (attribute) => {
 const Graph = ({ data, forecast, yAttribute }) => {
     // FOR WEATHER LINE
 
-    // const [activePoint, setActivePoint] = useState(null);
+    const [activePoint, setActivePoint] = useState(null);
 
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.left - margin.right;
@@ -79,14 +80,14 @@ const Graph = ({ data, forecast, yAttribute }) => {
     );
 
     const yScale = useMemo(() => scaleLinear()
-        .domain([yValue(data[0]), maxTemp(forecast)])
+        .domain([yValue(data[0]), maxTemp()])
         .range([innerHeight, 0])
         .nice(),
-        [data, maxTemp, forecast, yValue, innerHeight]
+        [data, maxTemp, yValue, innerHeight]
     );
 
 
-    // const handleHover = useCallback(setActivePoint, [setActivePoint]);
+    const handleHover = useCallback(setActivePoint, [setActivePoint]);
 
     // const lineGenerator = useMemo(
     //     () => line()
@@ -94,6 +95,8 @@ const Graph = ({ data, forecast, yAttribute }) => {
     //         .y(d => yScale(yValue(d)))
     //     , [xScale, xValue, yScale, yValue]
     // );
+
+    console.log(activePoint);
 
     return (
         <svg width={width} height={height}>
@@ -105,11 +108,11 @@ const Graph = ({ data, forecast, yAttribute }) => {
                 <text
                     textAnchor="middle"
                     transform={`translate(${ -yAxisLabelOffset }, ${ innerHeight / 2 }) rotate(-90)`}> {yAxisLabel}</text>
-                <text
+                {/* <text
                     x={innerWidth / 2}
                     y={innerHeight + xAxisLabelOffset}
                     textAnchor="middle"
-                >{xAxisLabel}</text>
+                >{xAxisLabel}</text> */}
 
                 <Marks
                     data={data}
@@ -118,6 +121,7 @@ const Graph = ({ data, forecast, yAttribute }) => {
                     xValue={xValue}
                     yValue={yValue}
                     toolTipFormat={(yValue) => (Math.round(yValue * 100) / 100).toFixed(1)}
+                    onHover={handleHover}
                 />
                 <Marks
                     tag="environment"
@@ -127,24 +131,23 @@ const Graph = ({ data, forecast, yAttribute }) => {
                     xValue={getFutureWeatherX}
                     yValue={getFutureWeatherY}
                     toolTipFormat={(yValue) => (Math.round(yValue * 100) / 100).toFixed(1)}
+                    onHover={handleHover}
                 />
+
                 {/* <VoronoiOverlay
                     data={data}
                     onHover={handleHover}
                     innerWidth={innerWidth}
                     innerHeight={innerHeight}
                     lineGenerator={lineGenerator}
-                />
+                /> */}
                 {activePoint ?
                     (
-                        <g className="tooltip" transform={`translate(${lineGenerator.x()(activePoint)},${lineGenerator.y()(activePoint)})`}>
-                            <circle
-                                r={5}
-                            />
-                            <text x={-5} y={-7}>{`${(activePoint[yAttribute])}`}</text>
-                        </g>
+
+                        <text x={10} y={10}>{`${ (activePoint[yAttribute]) }`}</text>
+
                     ) : null
-                } */}
+                }
             </g>
         </svg>
     )
