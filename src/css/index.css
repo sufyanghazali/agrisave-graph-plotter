@@ -29,17 +29,8 @@ code {
         monospace;
 }
 
-.aw--green {
-    color: #78bf42;
-}
-
 .test {
     border: 1px solid red;
-}
-
-.dashboard {
-    width: 90%;
-    margin: 3rem auto;
 }
 
 .sensor-visual {

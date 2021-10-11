@@ -12,7 +12,6 @@ import NavigationBar from './navbar/NavigationBar';
 import Dashboard from './Dashboard';
 import LandingPage from "./landing/LandingPage";
 import LoginPage from "./landing/LoginPage";
-import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 
 import Amplify from "aws-amplify";
 import awsExports from "../aws-exports";
@@ -28,9 +27,6 @@ const App = () => {
       setUser(authData);
     });
   }, [authState, user]);
-
-  console.log(authState)
-  console.log(user);
 
   return (
     <Router>

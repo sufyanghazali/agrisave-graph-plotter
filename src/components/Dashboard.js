@@ -5,6 +5,7 @@ import { API } from 'aws-amplify';
 import GraphContainer from './graph/GraphContainer';
 import WeatherContainer from './weather/WeatherContainer';
 import Map from './map/Map';
+import Widget from './ui/Widget';
 
 console.log(API);
 
@@ -61,11 +62,18 @@ const Dashboard = () => {
 
     return (sensorData && forecast) ?
         <div className="dashboard">
-            <div className="sensor-visual">
-                <WeatherContainer weather={weather} forecast={forecast} />
-                <Map coordinates={coordinates} zoom={16} />
+            <div className="container mx-auto grid grid-cols-3">
+                <Widget>
+                    <WeatherContainer weather={weather} forecast={forecast} />
+                </Widget>
+                <Widget>
+                    <Map coordinates={coordinates} zoom={16} />
+                </Widget>
+                <Widget>
+                    <GraphContainer sensor={sensorData} forecast={forecast} />
+                </Widget>
             </div>
-            <GraphContainer sensor={sensorData} forecast={forecast} />
+
         </div>
         :
         <div>
