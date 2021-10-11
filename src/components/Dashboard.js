@@ -14,9 +14,6 @@ const Dashboard = () => {
     const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
     const [weather, setWeather] = useState();
     const [forecast, setForecast] = useState();
-    const size = useWindowSize();
-
-
 
     useEffect(() => {
         async function getSensorData() {
@@ -90,9 +87,6 @@ const Dashboard = () => {
                 <Widget>
                     <Graph data={getTemperatureReadings()} forecast={formatForecast()} yLabel="Temperature  " />
                 </Widget>
-                <div>
-                    {size.width}px / {size.height}px
-                </div>
             </div>
         </div>
         :

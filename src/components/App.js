@@ -28,6 +28,8 @@ const App = () => {
     });
   }, [authState, user]);
 
+  console.log(user);
+
   return (
     <Router>
       <NavigationBar user={user} />

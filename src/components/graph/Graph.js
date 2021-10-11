@@ -29,11 +29,8 @@ const Graph = ({ data, forecast, yLabel }) => {
     const innerWidth = width - margin.left - margin.right;
 
     // Accessor function to pass in map()
-    // I feel like these should be named getValue instead
     const xValue = useCallback(d => new Date(d.x), []); // convert time stamp to Date object
     const yValue = useCallback(d => d.y, []);
-    const getFutureWeatherX = useCallback(d => new Date(d.x), []);
-    const getFutureWeatherY = useCallback(d => d.y, []);
 
     // Function to format Date object to "day month"
     // const xAxisTickFormat = timeFormat("%d %b");
@@ -47,10 +44,10 @@ const Graph = ({ data, forecast, yLabel }) => {
     );
 
     const xScale = useMemo(() => scaleTime()
-        .domain([xValue(data[0]), getFutureWeatherX(forecast[forecast.length - 1])])
+        .domain([xValue(data[0]), xValue(forecast[forecast.length - 1])])
         .range([0, innerWidth])
         .nice(),
-        [data, xValue, innerWidth, forecast, getFutureWeatherX]
+        [data, xValue, innerWidth, forecast]
     );
 
     const yScale = useMemo(() => scaleLinear()
@@ -97,8 +94,8 @@ const Graph = ({ data, forecast, yLabel }) => {
                     data={forecast}
                     xScale={xScale}
                     yScale={yScale}
-                    xValue={getFutureWeatherX}
-                    yValue={getFutureWeatherY}
+                    xValue={xValue}
+                    yValue={yValue}
                     onHover={handleHover}
                 />
 

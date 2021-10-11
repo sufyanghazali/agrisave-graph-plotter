@@ -10,10 +10,6 @@ const WeatherContainer = ({ weather, forecast }) => {
     const { humidity, temp, wind_speed } = weather;
     const icon = getIcon(weather.weather[0].icon);
 
-    console.log("WeatherContainer rendering");
-    console.log("weather data: ", weather)
-
-
     return (
         <div>
             <div className="weather">
