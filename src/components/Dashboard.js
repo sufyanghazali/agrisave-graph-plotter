@@ -74,7 +74,7 @@ const Dashboard = () => {
 
     return (sensorData && forecast) ?
         <div className="dashboard py-8 px-16">
-            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 xl xl:grid-cols-3 gap-4">
+            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-rows-1 md:grid-rows-2 xl:grid-rows-3 gap-4">
                 <Widget>
                     <WeatherContainer weather={weather} forecast={forecast} />
                 </Widget>

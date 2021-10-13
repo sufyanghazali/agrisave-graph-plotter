@@ -8,7 +8,9 @@ const YAxis = ({ yScale, innerWidth }) => {
         const yAxisG = select(ref.current);
         const yAxis = axisLeft(yScale)
             .tickSize(-innerWidth)
-            .tickPadding(10);
+            .tickPadding(10)
+            .ticks(5);
+
         yAxisG.call(yAxis);
     }, [yScale, innerWidth])
 

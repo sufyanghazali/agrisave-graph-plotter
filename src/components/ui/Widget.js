@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useRef, cloneElement } from 'react';
+import useContainerDimensions from "../../hooks/useContainerDimensions";
 
 const Widget = ({ children, span = 1 }) => {
-    return (<div className={`p-4 shadow rounded-md col-span-${ span }`}>
-        {children}
+    const ref = useRef();
+    const { width, height } = useContainerDimensions(ref);
+
+    console.log(width, height);
+
+    return (<div className={`p-4 shadow rounded-md col-span-${ span }`} ref={ref}>
+        {cloneElement(children, { width, height })}
     </div>);
 }
 

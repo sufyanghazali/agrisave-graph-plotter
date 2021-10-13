@@ -8,9 +8,6 @@ import XAxis from './XAxis';
 import YAxis from './YAxis';
 // import VoronoiOverlay from './VoronoiOverlay';
 
-
-const height = 300;
-const width = 700;
 const margin = {
     top: 10,
     right: 70,
@@ -21,12 +18,17 @@ const yAxisLabelOffset = 40;
 const tooltipOffset = -7;
 
 
-const Graph = ({ data, forecast, yLabel }) => {
+const Graph = ({ data, forecast, yLabel, width, height }) => {
+    if (height < 300)
+        height = 300;
+
     // FOR WEATHER LINE
     const [activePoint, setActivePoint] = useState(null);
 
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.left - margin.right;
+
+    console.log("innerHeight", innerHeight)
 
     // Accessor function to pass in map()
     const xValue = useCallback(d => new Date(d.x), []); // convert time stamp to Date object

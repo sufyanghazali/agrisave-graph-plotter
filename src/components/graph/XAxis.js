@@ -8,12 +8,12 @@ const XAxis = ({ xScale, innerHeight }) => {
         const xAxisG = select(ref.current); // x axis group element
         const xAxis = axisBottom(xScale)
             .tickSize(-innerHeight)
-            .tickPadding(10);
+            .tickPadding(10)
         xAxisG.call(xAxis);
     }, [xScale, innerHeight])
 
     return (
-        <g ref={ref} transform={`translate(0,${ innerHeight })`} />
+        <g ref={ref} transform={`translate(0,${ innerHeight })`} className="x-axis" />
     )
 }
 
