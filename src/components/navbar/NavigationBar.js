@@ -18,9 +18,8 @@ const NavigationBar = ({ user }) => {
             </div>
             <div className="navbar-secondary">
                 {user ? <Dropdown user={user} /> :
-
                     <Link to="/login" history="/">
-                        <button className="bg-awGreen px-6 py-3 text-white font-medium rounded-md">Log in</button>
+                        <button className="bg-awGreen px-6 py-3 text-white font-medium rounded">Log in</button>
                     </Link>
                 }
             </div>
