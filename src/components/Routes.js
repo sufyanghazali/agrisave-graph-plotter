@@ -1,21 +1,20 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import { AuthState } from "@aws-amplify/ui-components";
+import { Redirect } from "react-router";
 
 import Dashboard from "./Dashboard";
 import LandingPage from "./landing/LandingPage";
 import Login from "./landing/Login";
 
-const Routes = () => {
+const Routes = ({ user, isAuthenticated, handleAuthStateChange }) => {
     return (
         <Switch>
             <Route exact path="/">
-                {/* {(authState === AuthState.SignedIn && user) ? <Dashboard /> : <LandingPage />
-                } */}
-                <Dashboard />
+                {(isAuthenticated && user) ? <Dashboard /> : <LandingPage />}
             </Route>
             <Route path="/login">
-                {/* {(authState === AuthState.SignedIn && user) ? <Redirect to="/" /> : <LoginPage authState={authState} />} */}
-                <Login />
+                {(isAuthenticated && user) ? <Redirect to="/" /> : <Login handleAuthStateChange={handleAuthStateChange} />}
             </Route>
         </Switch>
     )

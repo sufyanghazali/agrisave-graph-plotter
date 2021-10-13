@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 
 import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
@@ -6,8 +6,6 @@ import Graph from './graph/Graph';
 import WeatherContainer from './weather/WeatherContainer';
 import Map from './map/Map';
 import Widget from './ui/Widget';
-
-import useWindowSize from '../hooks/useWindowSize';
 
 const Dashboard = () => {
     const [sensorData, setSensorData] = useState();
@@ -60,6 +58,9 @@ const Dashboard = () => {
         getWeather();
     }, [coordinates.lat, coordinates.lng]);
 
+
+    // Functions to format data to pass to graphs
+
     const getMoistureReadings = useCallback(() => {
         return sensorData.items.map(reading => ({ x: reading.unixTimeStamp, y: +reading.deviceMos }))
     }, [sensorData]);
@@ -74,7 +75,7 @@ const Dashboard = () => {
 
     return (sensorData && forecast) ?
         <div className="dashboard py-8 px-16">
-            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-rows-1 md:grid-rows-2 xl:grid-rows-3 gap-4">
+            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-4">
                 <Widget>
                     <WeatherContainer weather={weather} forecast={forecast} />
                 </Widget>

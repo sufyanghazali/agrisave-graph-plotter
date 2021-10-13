@@ -5,8 +5,6 @@ const Widget = ({ children, span = 1 }) => {
     const ref = useRef();
     const { width, height } = useContainerDimensions(ref);
 
-    console.log(width, height);
-
     return (<div className={`p-4 shadow rounded-md col-span-${ span }`} ref={ref}>
         {cloneElement(children, { width, height })}
     </div>);
