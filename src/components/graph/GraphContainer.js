@@ -2,17 +2,14 @@ import React from 'react';
 import Graph from './Graph';
 import '../../css/graph.css';
 
-const GraphContainer = ({ sensor, forecast }) => {
+const GraphContainer = ({ data, forecast, label, width, height, symbol }) => {
 
     console.log("GraphContainer rendering");
 
     return (
         <div className="graph-container">
-            <h2>{sensor.items[0].serialNumber}</h2>
-            <div className="graphs">
-                <Graph data={sensor.items} yAttribute="deviceTemp" forecast={forecast} />
-                <Graph data={sensor.items} yAttribute="deviceMos" forecast={forecast} />
-            </div>
+            <span className="font-medium text-xl mt-6 mb-4 inline-block">{label}</span>
+            <Graph data={data} forecast={forecast} width={width} height={height} symbol={symbol} />
         </div>
     );
 }

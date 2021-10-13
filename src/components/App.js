@@ -43,8 +43,6 @@ const App = () => {
     }
   });
 
-  console.log(user);
-  console.log(isAuthenticated);
   return (
     <div className="App">
       <NavigationBar user={user} isAuthenticated={isAuthenticated} />

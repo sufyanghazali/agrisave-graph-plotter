@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState } from 'react';
 
 import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
-import Graph from './graph/Graph';
+import GraphContainer from './graph/GraphContainer';
 import WeatherContainer from './weather/WeatherContainer';
 import Map from './map/Map';
 import Widget from './ui/Widget';
@@ -83,10 +83,10 @@ const Dashboard = () => {
                     <Map coordinates={coordinates} zoom={16} />
                 </Widget>
                 <Widget>
-                    <Graph data={getMoistureReadings()} forecast={formatForecast()} yLabel="Moisture" />
+                    <GraphContainer data={getMoistureReadings()} forecast={formatForecast()} label="Moisture" symbol="%" />
                 </Widget>
                 <Widget>
-                    <Graph data={getTemperatureReadings()} forecast={formatForecast()} yLabel="Temperature  " />
+                    <GraphContainer data={getTemperatureReadings()} forecast={formatForecast()} label="Temperature" symbol={`\xB0C`} />
                 </Widget>
             </div>
         </div>

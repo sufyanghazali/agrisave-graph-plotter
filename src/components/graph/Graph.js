@@ -18,7 +18,7 @@ const yAxisLabelOffset = 40;
 const tooltipOffset = -7;
 
 
-const Graph = ({ data, forecast, yLabel, width, height }) => {
+const Graph = ({ data, forecast, yLabel, width, height, symbol }) => {
     // FOR WEATHER LINE
     const [activePoint, setActivePoint] = useState(null);
 
@@ -104,7 +104,7 @@ const Graph = ({ data, forecast, yLabel, width, height }) => {
                         textAnchor="middle"
                         className="font-medium"
                     >
-                        {`${ Math.round(activePoint.y) }`}
+                        {`${ Math.round(activePoint.y) }${ symbol }`}
                     </text>
                     : null
                 }

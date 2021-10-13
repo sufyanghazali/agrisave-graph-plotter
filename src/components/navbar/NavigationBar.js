@@ -1,5 +1,7 @@
 import React from 'react';
 import Dropdown from './Dropdown';
+import { AmplifySignOut } from "@aws-amplify/ui-react";
+
 import '../../css/navbar.css';
 import {
     Link
@@ -16,7 +18,14 @@ const NavigationBar = ({ user, isAuthenticated }) => {
                 </a>
             </div>
             <div className="navbar-secondary">
-                {(user && isAuthenticated) ? <Dropdown user={user} /> :
+                {(user && isAuthenticated) ?
+                    <div className="flex flex-row items-center">
+                        <div className="font-medium text-lg p-4 mr-4">
+                            {user.username}
+                        </div>
+                        < AmplifySignOut />
+                    </div>
+                    :
                     <Link to="/login" history="/">
                         <button className="bg-awGreen px-6 py-3 text-white font-medium rounded">Log in</button>
                     </Link>
