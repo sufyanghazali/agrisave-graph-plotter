@@ -6,6 +6,7 @@ import Routes from "./Routes"
 
 import Amplify from "aws-amplify";
 import awsExports from "../aws-exports";
+console.log(awsExports);
 Amplify.configure(awsExports);
 console.log(Amplify);
 
