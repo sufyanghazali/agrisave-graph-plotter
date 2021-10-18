@@ -4,17 +4,14 @@ import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import NavigationBar from './navbar/NavigationBar';
 import Routes from "./Routes"
 
-import Amplify from "aws-amplify";
-import awsconfig from "../aws-exports";
 // const config = {
 //   ...awsExports, "aws_appsync_graphqlEndpoint": "https://5rf33fjoi5c3nmrvjmh3sie5im.appsync-api.ap-southeast-2.amazonaws.com/graphql",
 //   "aws_appsync_region": "ap-southeast-2",
 //   "aws_appsync_authenticationType": "API_KEY",
 //   "aws_appsync_apiKey": "da2-iordxcjbk5h5ng2luvpsnkx27e"
 // }
-Amplify.configure(awsconfig);
 
-const App = () => {
+const App = ({ client }) => {
   const [authState, setAuthState] = useState();
   const [user, setUser] = useState();
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -51,7 +48,7 @@ const App = () => {
   return (
     <div className="App">
       <NavigationBar user={user} isAuthenticated={isAuthenticated} />
-      <Routes user={user} isAuthenticated={isAuthenticated} handleAuthStateChange={handleAuthStateChange} />
+      <Routes user={user} isAuthenticated={isAuthenticated} handleAuthStateChange={handleAuthStateChange} client={client} />
     </div>
   );
 }

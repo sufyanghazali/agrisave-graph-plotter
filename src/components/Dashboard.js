@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react';
 
+
 import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
 import GraphContainer from './graph/GraphContainer';
@@ -7,7 +8,7 @@ import WeatherContainer from './weather/WeatherContainer';
 import Map from './map/Map';
 import Widget from './ui/Widget';
 
-const Dashboard = () => {
+const Dashboard = ({ client }) => {
     const [sensorData, setSensorData] = useState();
     const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
     const [weather, setWeather] = useState();

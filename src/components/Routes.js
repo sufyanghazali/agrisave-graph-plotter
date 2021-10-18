@@ -7,11 +7,11 @@ import Dashboard from "./Dashboard";
 import LandingPage from "./landing/LandingPage";
 import Login from "./landing/Login";
 
-const Routes = ({ user, isAuthenticated, handleAuthStateChange }) => {
+const Routes = ({ user, isAuthenticated, handleAuthStateChange, client }) => {
     return (
         <Switch>
             <Route exact path="/">
-                {(isAuthenticated && user) ? <Dashboard /> : <LandingPage />}
+                {(isAuthenticated && user) ? <Dashboard client={client} /> : <LandingPage />}
             </Route>
             <Route path="/login">
                 {(isAuthenticated && user) ? <Redirect to="/" /> : <Login handleAuthStateChange={handleAuthStateChange} />}
