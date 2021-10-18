@@ -6,6 +6,7 @@ import Routes from "./Routes"
 
 import Amplify from "aws-amplify";
 import awsExports from "../aws-exports";
+console.log(awsExports);
 const config = {
   ...awsExports, "aws_appsync_graphqlEndpoint": "https://5rf33fjoi5c3nmrvjmh3sie5im.appsync-api.ap-southeast-2.amazonaws.com/graphql",
   "aws_appsync_region": "ap-southeast-2",
