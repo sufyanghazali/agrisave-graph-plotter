@@ -15,17 +15,17 @@ const WeatherContainer = ({ weather, forecast }) => {
             <div className="weather">
                 <div className="weather-tile weather-info">
                     {/* <span className="city">{name}</span> */}
-                    <span className="temp-current">{Math.round(temp)} C</span>
+                    <span className="text-4xl">{Math.round(temp)} C</span>
                     {/* <span className="temp-range">{Math.round(temp_max)} / {Math.round(temp_min)} C</span> */}
-                    <div className="weather-info--secondary" >
+                    <div className="" >
                         <span>Wind: {wind_speed} km/h</span>
                         <span>Humidity: {humidity} %</span>
                     </div>
                 </div>
 
                 <div className="weather-tile weather-image">
-                    <i className={`wi ${ icon } weather-icon`}></i>
-                    <span className="weather-desc">{description}</span>
+                    <i className={`wi ${ icon }`}></i>
+                    <span className="">{description}</span>
                 </div>
                 <Forecast forecast={forecast} />
             </div>
