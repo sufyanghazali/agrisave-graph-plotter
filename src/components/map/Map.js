@@ -3,11 +3,13 @@ import GoogleMapReact from 'google-map-react';
 import LocationPin from './LocationPin';
 import '../../css/map.css';
 
-const Map = ({ coordinates, zoom }) => {
+const Map = ({ coordinates, zoom, height }) => {
     const ref = useRef();
 
     return (
-        <div className="map" ref={ref}>
+        <div className="map" style={{
+            height: `${height}px`
+        }} ref={ref}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API }}
                 defaultCenter={coordinates}

@@ -45,7 +45,7 @@ const Dashboard = () => {
     useEffect(() => {
         async function getWeather() {
             try {
-                await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${ coordinates.lat }&lon=${ coordinates.lng }&appid=${ process.env.REACT_APP_WEATHER_API }&units=metric&exclude=minutely,alerts`)
+                await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&appid=${process.env.REACT_APP_WEATHER_API}&units=metric&exclude=minutely,alerts`)
                     .then(res => res.json())
                     .then(data => {
                         setWeather(data.current);
@@ -74,10 +74,11 @@ const Dashboard = () => {
     }, [forecast]);
 
     return (sensorData && forecast) ?
-        <div className="">
-            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-4">
+        <div className="p-4">
+            {/* <div className="mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-4"> */}
+            <div className="dashboard__grid ">
                 <Widget>
-                    <WeatherContainer weather={weather} forecast={forecast} />
+                    <WeatherContainer weather={weather} forecast={forecast} coordinates={coordinates} />
                 </Widget>
                 <Widget>
                     <Map coordinates={coordinates} zoom={16} />

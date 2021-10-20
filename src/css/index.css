@@ -5,65 +5,72 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 :root {
-    --amplify-primary-color: #78bf42;
-    --amplify-primary-tint: #ff7359;
-    --amplify-primary-shade: #e0573e;
+  --amplify-primary-color: #78bf42;
+  --amplify-primary-tint: #ff7359;
+  --amplify-primary-shade: #e0573e;
 }
 
 body {
-    margin: 0;
-    line-height: 1;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  line-height: 1;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 .test {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .sensor-visual {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
 }
 
 .landing-page {
-    display: grid;
+  display: grid;
 }
 
 .landing-page__card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero {
-    background-image: url(../assets/images/hero.jpeg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    text-align: center;
+  background-image: url(../assets/images/hero.jpeg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
 }
 
 .hero__text {
-    color: white;
+  color: white;
 }
 
 .hero__heading {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .hero__text.container {
-    margin-bottom: 6rem;
+  margin-bottom: 6rem;
+}
+
+.dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  margin-bottom: 16px;
+  gap: 16px;
 }

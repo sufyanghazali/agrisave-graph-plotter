@@ -26,6 +26,7 @@ yarn-error.log*
 
 #personal
 /notes
+notes.md
 .env
 
 #amplify-do-not-edit-begin

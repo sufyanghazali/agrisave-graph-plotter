@@ -9,7 +9,7 @@ const GraphContainer = ({ data, forecast, label, width, height, symbol }) => {
     return (
         <div className="graph-container">
             <span className="font-medium text-xl mt-6 mb-4 inline-block">{label}</span>
-            <Graph data={data} forecast={forecast} width={width} height={height} symbol={symbol} />
+            <Graph data={data} forecast={forecast} width={width} height={height - 100} symbol={symbol} />
         </div>
     );
 }

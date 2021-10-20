@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 const useContainerDimensions = ref => {
     const getDimensions = useCallback(() => ({
-        width: ref.current.offsetWidth,
+        width: ref.current.offsetWidth - 32, // 32 is padding-x value
         height: 300
         // height: ref.current.offsetHeight
     }), [ref]);

@@ -9,10 +9,14 @@ import YAxis from './YAxis';
 // import VoronoiOverlay from './VoronoiOverlay';
 
 const margin = {
-    top: 10,
-    right: 70,
-    bottom: 50,
-    left: 60
+    // top: 10,
+    // right: 70,
+    // bottom: 50,
+    // left: 60
+    top: 20,
+    right: 0,
+    bottom: 20,
+    left: 20
 };
 const yAxisLabelOffset = 40;
 const tooltipOffset = -7;
