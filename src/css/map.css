@@ -9,10 +9,10 @@
 }
 
 .location-pin {
-    height: 20px;
-    width: 20px;
+    height: 13px;
+    width: 13px;
     border-radius: 50%;
-    background-color: rgba(0, 212, 255, 1);
-    border: 3px solid #ffffff;
+    background-color: rgba(191, 197,210, 1);
+    border: 1px solid #ffffff;
     transform: translate(-50%, -50%);
 }

@@ -8,6 +8,9 @@ import Map from './map/Map';
 import Widget from './ui/Widget';
 
 const Dashboard = () => {
+    // const [sensors, setSensors] = useState();
+    // const [selectedSensor, setSelectedSensor] = useState();
+
     const [sensorData, setSensorData] = useState();
     const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
     const [weather, setWeather] = useState();
@@ -33,6 +36,7 @@ const Dashboard = () => {
                             lat: +data.items[0].deviceLat,
                             lng: +data.items[0].deviceLon
                         });
+                        console.log(data)
                         setSensorData(data);
                     })
             } catch (err) {

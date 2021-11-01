@@ -1,5 +1,5 @@
 import React from 'react';
 
-const LocationPin = ({ lat, lng }) => <div className="location-pin"></div>
+const LocationPin = ({ lat, lng, sensor }) => <div className="location-pin"></div>
 
     export default LocationPin;
