@@ -41,5 +41,5 @@ sensors: [
 
 ## Flow
 
--   getSensors(userId)
--   update "sensors" state in app
+- getSensors(userId)
+- update "sensors" state in app

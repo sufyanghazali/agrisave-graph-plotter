@@ -19,16 +19,31 @@ type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
     content: String!
 }
 
+type User @model {
+    id: ID!
+    name: String!
+    farm: [Farm] @connection(fields:["farmID"])
+    sensors: [Sensor] @connection(fields: ["sensorID"]);
+    contact_info: Contact @connection
+}
+
+type Contact @model {
+    phone: String!
+    email: String
+}
+
 type Sensor @model {
     id: ID!
     serial_number: String!
-    farm: ID
-    latitude: 
-    longitude:
-    readings: [Readings]
+    farm: Farm @connection(fields: ["farmID"])
+    latitude: FLOAT!
+    longitude: FLOAT!
+    readings: [Reading] @connection
 }
 
 type Reading @model {
-  id: ID!
-
+    id: ID!
+    timestamp: INT!
+    moisture: FLOAT!
+    temperature: FLOAT!
 }
