@@ -25,6 +25,7 @@ yarn-error.log*
 
 
 #personal
+/references
 /notes
 notes.md
 .env
