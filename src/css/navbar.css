@@ -1,11 +1,6 @@
 .navbar {
-    height: 70px;
-    width: 100%;
     /* background-color: pink; */
     padding: 0 2rem;
-    display: inline-flex;
-    flex-direction: row;
-    flex-grow: 1;
 }
 
 .navbar-logo {

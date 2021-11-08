@@ -29,6 +29,11 @@ code {
         monospace;
 }
 
+.App {
+    display: flex;
+    flex-direction: row;
+}
+
 .test {
     border: 1px solid red;
 }

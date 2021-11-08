@@ -9,7 +9,7 @@ import {
 
 const NavigationBar = ({ user, isAuthenticated }) => {
     return (
-        <nav className="navbar shadow">
+        <nav className="navbar flex flex-col shadow">
             <div className="navbar-logo">
                 <a href="/">
                     {/* <a href="/" rel="home" aria-current="page"> */}
@@ -19,7 +19,7 @@ const NavigationBar = ({ user, isAuthenticated }) => {
             </div>
             <div className="navbar-secondary">
                 {(user && isAuthenticated) ?
-                    <div className="flex flex-row items-center">
+                    <div className="flex flex-col items-center">
                         <div className="font-medium text-lg p-4 mr-4">
                             {user.username}
                         </div>
