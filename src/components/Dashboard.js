@@ -49,7 +49,7 @@ const Dashboard = () => {
     useEffect(() => {
         async function getWeather() {
             try {
-                await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lng}&appid=${process.env.REACT_APP_WEATHER_API}&units=metric&exclude=minutely,alerts`)
+                await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${ coordinates.lat }&lon=${ coordinates.lng }&appid=${ process.env.REACT_APP_WEATHER_API }&units=metric&exclude=minutely,alerts`)
                     .then(res => res.json())
                     .then(data => {
                         setWeather(data.current);
