@@ -19,42 +19,62 @@
 #     content: String!
 # }
 
+type Farm @model {
+    id: ID!
+    name: String!
+    owners: [FarmUserJoin] @connection(keyName: "farm_owners", fields: ["id"])
+    sensors: [Sensor] @connection(keyName: "farm_sensors", fields: ["id"])
+}
+
+type FarmUserJoin
+    @model(queries: null)
+    @key(name: "farm_owners", fields: ["farm_id", "user_id"])
+    @key(name: "user_farms", fields: ["user_id", "farm_id"]) {
+    id: ID!
+    farm_id: ID!
+    user_id: ID!
+    farm: Farm! @connection(fields: ["farm_id"])
+    user: User! @connection(fields: ["user_id"])
+}
+
 type User @model {
     id: ID!
     name: String!
     phone: String
     email: String!
-    farms: [Farm]
-    sensors: [Sensor] @connection(keyName: "byOwner", fields: ["id"])
+    farms: [FarmUserJoin] @connection(keyName: "user_farms", fields: ["id"])
+    sensors: [SensorUserJoin]
+        @connection(keyName: "user_sensors", fields: ["id"])
 }
 
-type Farm @model {
+type SensorUserJoin
+    @model(queries: null)
+    @key(name: "user_sensors", fields: ["user_id", "sensor_id"])
+    @key(name: "sensor_owners", fields: ["sensor_id", "user_id"]) {
     id: ID!
-    name: String!
-    owners: [ID]
-    sensors: [Sensor] @connection(keyName: "byFarm", fields: ["id"])
+    user_id: ID!
+    sensor_id: ID!
+    sensor: Sensor! @connection(fields: ["user_id"])
+    user: User! @connection(fields: ["sensor_id"])
 }
 
-type Sensor
-    @model
-    @key(name: "byFarm", fields: ["farmID"])
-    @key(name: "byOwner", fields: ["ownerID"]) {
+type Sensor @model @key(name: "farm_sensors", fields: ["farm_id"]) {
     id: ID!
     serial_number: String!
-    farmID: ID!
-    farm: Farm @connection(fields: ["farmID"])
-    ownerID: ID!
-    owner: User @connection(fields: ["ownerIDs"])
-    latitude: FLOAT!
-    longitude: FLOAT!
-    readings: [Reading] @connection(keyName: "bySensor", fields: ["id"])
+    farm_id: ID
+    farm: Farm @connection(fields: ["farm_id"])
+    owners: [SensorUserJoin]
+        @connection(keyName: "sensor_owners", fields: ["id"])
+    latitude: Float!
+    longitude: Float!
+    readings: [Reading] @connection(keyName: "sensor_readings", fields: ["id"])
 }
 
-type Reading @model @key(name: "bySensor", fields: ["sensorID"]) {
+type Reading @model @key(name: "sensor_readings", fields: ["sensor_id"]) {
     id: ID!
-    sensorID: ID!
-    sensor: Sensor @connection(fields: ["sensorID"])
-    timestamp: INT!
-    moisture: FLOAT!
-    temperature: FLOAT!
+    sensor_id: ID!
+    sensor: Sensor @connection(fields: ["sensor_id"])
+    timestamp: Int!
+    moisture: Float!
+    temperature: Float!
 }

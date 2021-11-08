@@ -1,45 +1,30 @@
-## Sensors
+# User Singup Flow
 
-{
-\_id: "AGRIM8-SN3320"
-user: <UserId>,
-farm_id: String
-coordinates : {
-longitude: 234.0,
-latitude: 0.0
-}
-readings : [
-<Reading1>,
-<Reading2>,
-<Reading3>,
-<Reading4>,
-]
-}
+-   User registers via Agriweiss
+-   Amazon Cognito handles authentication/authorization
+    -   Adds user to user pool
+-   Somehow create User item in database after verification
 
-## Readings
+## Sensor Flow
 
-{
-\_id: 1,
-sensorId: <SensorId>,
-moisture: 25,
-temperature: 25
-}
+-   User can **register their farm** to the app
+    -   establish connection between:
+        -   user and farm
+-   User needs to **add sensor** to their account
+    -   establish relationship between:
+        -   sensor and user
+        -   sensor and farm (if applicable)
+-   Sensor takes readings
+-   Sensor pushes reading to AWS IoT service
+-   Somehow pushes that data to API
+-   API creates Reading item and adds to database
 
-## Users
+## Agriweiss Flow
 
-{
-\_id: 1,
-username: "sufyan",
-email: "sufyan.ghazali@gmail.com",
-phone: 0443895094
-sensors: [
-<SensorId>,
-<SensorId>,
-<SensorId>
-]
-}
-
-## Flow
-
-- getSensors(userId)
-- update "sensors" state in app
+-   Fetch user sensors
+-   Fetch readings from all user's sensors
+-   Render sensors on Map component
+-   Render readings on Feed component
+-   On Sensor click, fetch sensor's readings
+    -   Then render current/most recent reading
+-   On Readings click, render data
