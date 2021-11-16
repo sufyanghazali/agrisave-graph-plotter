@@ -15,4 +15,9 @@
     background-color: rgba(0, 212, 255, 1);
     border: 3px solid #ffffff;
     transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.location-pin:hover {
+    transform: translate(-50%, -50%) scale(1.2);
 }

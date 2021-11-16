@@ -9,7 +9,7 @@ import {
 
 const NavigationBar = ({ user, isAuthenticated }) => {
     return (
-        <nav className="navbar flex flex-col shadow">
+        <nav className="navbar p-4 flex flex-col shadow">
             <div className="navbar-logo">
                 <a href="/">
                     {/* <a href="/" rel="home" aria-current="page"> */}

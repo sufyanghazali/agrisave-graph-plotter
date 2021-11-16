@@ -2,16 +2,22 @@ import React, { useEffect, useCallback, useState } from 'react';
 
 import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
-import GraphContainer from './graph/GraphContainer';
-import WeatherContainer from './weather/WeatherContainer';
 import Map from './map/Map';
-import Widget from './ui/Widget';
+import SidePanel from "./SidePanel";
+
 
 const Dashboard = () => {
     const [sensorData, setSensorData] = useState();
     const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
     const [weather, setWeather] = useState();
     const [forecast, setForecast] = useState();
+
+    const [showPanel, setShowPanel] = useState(false);
+
+    const toggleSidePanel = () => {
+        console.log("toggle called")
+        setShowPanel(!showPanel);
+    }
 
     useEffect(() => {
         async function getSensorData() {
@@ -74,21 +80,9 @@ const Dashboard = () => {
     }, [forecast]);
 
     return (sensorData && forecast) ?
-        <div className="">
-            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-4">
-                <Widget>
-                    <WeatherContainer weather={weather} forecast={forecast} />
-                </Widget>
-                <Widget>
-                    <Map coordinates={coordinates} zoom={16} />
-                </Widget>
-                <Widget>
-                    <GraphContainer data={getMoistureReadings()} forecast={formatForecast()} label="Moisture" symbol="%" />
-                </Widget>
-                <Widget>
-                    <GraphContainer data={getTemperatureReadings()} forecast={formatForecast()} label="Temperature" symbol={`\xB0C`} />
-                </Widget>
-            </div>
+        <div className="dashboard flex-grow">
+            <SidePanel show={showPanel} />
+            <Map coordinates={coordinates} zoom={16} toggle={toggleSidePanel} />
         </div>
         :
         <div>
