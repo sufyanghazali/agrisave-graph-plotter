@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { AuthState } from "@aws-amplify/ui-components";
 import { Redirect } from "react-router";
 
 import Dashboard from "./Dashboard";
