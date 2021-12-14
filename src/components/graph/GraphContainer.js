@@ -5,6 +5,7 @@ import '../../css/graph.css';
 const GraphContainer = ({ data, forecast, label, width, height, symbol }) => {
 
     console.log("GraphContainer rendering");
+    console.log(data);
 
     return (
         <div className="graph-container">

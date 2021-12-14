@@ -1,5 +1,4 @@
 import React from 'react';
-import Dropdown from './Dropdown';
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 
 import '../../css/navbar.css';
@@ -9,7 +8,7 @@ import {
 
 const NavigationBar = ({ user, isAuthenticated }) => {
     return (
-        <nav className="navbar p-4 flex flex-col shadow">
+        <nav className="navbar p-4 flex shadow">
             <div className="navbar-logo">
                 <a href="/">
                     {/* <a href="/" rel="home" aria-current="page"> */}
@@ -19,7 +18,7 @@ const NavigationBar = ({ user, isAuthenticated }) => {
             </div>
             <div className="navbar-secondary">
                 {(user && isAuthenticated) ?
-                    <div className="flex flex-col items-center">
+                    <div className="flex items-center">
                         <div className="font-medium text-lg p-4 mr-4">
                             {user.username}
                         </div>

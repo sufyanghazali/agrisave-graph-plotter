@@ -3,7 +3,11 @@ import React, { useEffect, useCallback, useState } from 'react';
 import * as queries from '../graphql/queries';
 import { API } from 'aws-amplify';
 import Map from './map/Map';
+import Widget from './ui/Widget';
+import WeatherContainer from './weather/WeatherContainer';
 import SidePanel from "./SidePanel";
+import Graph from './graph/Graph';
+import GraphContainer from './graph/GraphContainer';
 
 
 const Dashboard = () => {
@@ -80,9 +84,34 @@ const Dashboard = () => {
     }, [forecast]);
 
     return (sensorData && forecast) ?
-        <div className="dashboard flex-grow">
-            <SidePanel show={showPanel} />
-            <Map coordinates={coordinates} zoom={16} toggle={toggleSidePanel} />
+        <div className="dashboard">
+            <Widget>
+                <WeatherContainer
+                    weather={weather}
+                    forecast={forecast}
+                />
+            </Widget>
+
+            <Widget>
+                <Map coordinates={coordinates} zoom={16} toggle={toggleSidePanel} />
+            </Widget>
+            <Widget>
+                <GraphContainer
+                    data={getMoistureReadings()}
+                    forecast={formatForecast()}
+                    label="Moisture"
+                    symbol="%"
+                />
+            </Widget>
+            <Widget>
+                <GraphContainer
+                    data={getTemperatureReadings()}
+                    forecast={formatForecast()}
+                    label="Temperature"
+                    symbol={'\u00b0C'}
+                />
+            </Widget>
+
         </div>
         :
         <div>
