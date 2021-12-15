@@ -7,10 +7,14 @@ const useContainerDimensions = ref => {
         // height: ref.current.offsetHeight
     }), [ref]);
 
+
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
+
         const handleResize = () => {
+            console.log(ref.current.offsetWidth)
+
             setDimensions(getDimensions());
         }
 

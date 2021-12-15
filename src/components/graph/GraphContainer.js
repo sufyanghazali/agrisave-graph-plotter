@@ -3,10 +3,6 @@ import Graph from './Graph';
 import '../../css/graph.css';
 
 const GraphContainer = ({ data, forecast, label, width, height, symbol }) => {
-
-    console.log("GraphContainer rendering");
-    console.log(data);
-
     return (
         <div className="graph-container">
             <span className="font-medium text-xl mt-6 mb-4 inline-block">{label}</span>

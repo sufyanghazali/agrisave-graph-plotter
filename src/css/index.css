@@ -41,6 +41,11 @@ code {
     flex-direction: column;
 }
 
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
 .test {
     border: 1px solid red;
 }
