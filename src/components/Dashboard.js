@@ -98,7 +98,7 @@ const Dashboard = () => {
                     <GraphContainer
                         data={getMoistureReadings()}
                         forecast={formatForecast()}
-                        label="Moisture"
+                        yLabel="Moisture"
                         symbol="%"
                     />
                 </Widget>
@@ -106,7 +106,7 @@ const Dashboard = () => {
                     <GraphContainer
                         data={getTemperatureReadings()}
                         forecast={formatForecast()}
-                        label="Temperature"
+                        yLabel="Temperature"
                         symbol={'\u00b0C'}
                     />
                 </Widget>

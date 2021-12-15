@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const useContainerDimensions = ref => {
-    const getDimensions = useCallback(() => ({
-        width: ref.current.offsetWidth,
-        height: 300
-        // height: ref.current.offsetHeight
-    }), [ref]);
+    const getDimensions = useCallback(() => {
+        console.log(ref.current)
+        return {
+            width: ref.current.offsetWidth,
+            height: 300
+        }
+    }, [ref]);
 
 
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -13,8 +15,6 @@ const useContainerDimensions = ref => {
     useEffect(() => {
 
         const handleResize = () => {
-            console.log(ref.current.offsetWidth)
-
             setDimensions(getDimensions());
         }
 
